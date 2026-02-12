@@ -186,7 +186,7 @@ const HomePage = () => {
             iconStyles="w-10 h-10 border border-accent rounded-full flex justify-center items-center text-accent text-lg hover:bg-accent hover:text-primary hover:transition-all duration-500"
           />
           <Button variant="outline" asChild className="uppercase">
-            <a href="mailto:kevincui1034@gmail.com">Email me</a>
+            <a href="mailto:kevincui1034@gmail.com">Contact me</a>
           </Button>
         </div>
       </motion.section>
