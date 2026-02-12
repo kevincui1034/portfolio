@@ -1,43 +1,187 @@
+"use client";
+
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import Social from "@/components/Social";
 import { FiDownload } from "react-icons/fi";
-import { FiLinkedin} from "react-icons/fi";
-import { FiGithub} from "react-icons/fi";
+import { motion } from "framer-motion";
 
+const technologies = [
+  { name: "Python", image: "/python.svg" },
+  { name: "MySQL", image: "/mysql.svg" },
+  { name: "R", image: "/r.svg" },
+  { name: "Git", image: "/git.svg" },
+  { name: "TensorFlow", image: "/tensorflow.svg" },
+  { name: "PyTorch", image: "/pytorch.svg" },
+  { name: "Scikit-learn", image: "/scikit.svg" },
+  { name: "React", image: "/react.svg" },
+  { name: "NextJS", image: "/nextjs.svg" },
+  { name: "NodeJS", image: "/nodejs.svg" },
+  { name: "TailwindCSS", image: "/tailwind.svg" },
+  { name: "Bash", image: "/bash.svg" },
+];
+
+const projects = [
+  { title: "Pokemon Moveset Predictor",
+    description: "Pokemon moveset predictor using machine learning.",
+    href: "/projects",
+    tags: ["Python", "Pandas", "Numpy", "Scikit-learn", "GCP", "Dash", "Flask", "Seaborn"] },
+
+  { title: "Money Maestro",
+    description: "Finance tracking and visualization tool.",
+    href: "/projects",
+    tags: ["Python", "Dash", "Flask","Seaborn", "GCP", "Plotly"] },
+
+  { title: "SkipBeatTi",
+    description:"Music streaming platform with commenting system.",
+    href: "/projects",
+    tags: ["React", "Vite", "Typescript", "MySQL", "TailwindCSS", "Clerk"] },
+];
 
 const HomePage = () => {
   return (
-    <section className="h-full">
-      <div className="container mx-auto h-full">
-        <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-24 xl:pb-24">
-          <div className="text-center xl:text-left">
-            <span className="text-[12px] text-accent uppercase tracking-[2px]">Based in San Jose</span>
-            <h1 className="h1 mb-6 text-6xl font-bold">
-              Kevin Cui<br /> <span className="text-accent"> Data Scientist</span>
-            </h1>
-            <p className="max-w-[500px] mb-9 text-white/80">
-              I'm a data scientist with a passion for building data-driven solutions to real-world problems.
-            </p>
-            <div className="flex flex-col xl:flex-row items-center gap-8">
-              <Button variant="outline" size="md" asChild className="uppercase flex items-center gap-2 text-accent">
-                <a href="/kevincui_resume.pdf" download="kevincui_resume.pdf">
-                  Download CV
-                  <FiDownload className="text-xl" />
-                </a>
-              </Button>  
-              <div className="mb-8 xl:mb-0">
-              <Social
-              containerStyles="flex gap-4"
-              iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"/>
-            </div>    
+    <>
+      <section className="h-full min-h-screen">
+        <div className="container mx-auto h-full">
+          <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-24 xl:pb-24">
+            <div className="text-center xl:text-left">
+              <span className="text-[12px] text-accent uppercase tracking-[2px]">Based in San Jose</span>
+              <h1 className="h1 mb-6 text-6xl font-bold">
+                Kevin Cui<br /> <span className="text-accent"> Data Scientist</span>
+              </h1>
+              <p className="max-w-[500px] mb-9 text-white/80">
+                I'm a data scientist with a passion for building data-driven solutions to real-world problems.
+              </p>
+              <div className="flex flex-col xl:flex-row items-center gap-8">
+                <Button variant="outline" size="md" asChild className="uppercase flex items-center gap-2 text-accent">
+                  <a href="/kevincui_resume.pdf" download="kevincui_resume.pdf">
+                    Download CV
+                    <FiDownload className="text-xl" />
+                  </a>
+                </Button>
+                <div className="mb-8 xl:mb-0">
+                  <Social
+                    containerStyles="flex gap-4"
+                    iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
+                  />
+                </div>
+              </div>
             </div>
-
-
-
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <motion.section
+        className="py-24"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <div className="container mx-auto">
+          <h2 className="text-5xl font-bold mb-8 text-center">
+            Current Technologies
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {technologies.map((tech, i) => (
+              <motion.div
+                key={tech.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.05 }}
+              >
+                <Card className="border-white/10 bg-white/5 text-white hover:border-accent/50 transition-colors">
+                  <CardContent className="p-5 flex items-center gap-4">
+                    <div className={`w-12 h-12 flex-shrink-0 rounded-xl overflow-hidden flex items-center justify-center ${tech.iconBg ?? "bg-white/10"}`}>
+                      <img
+                        src={tech.image}
+                        alt=""
+                        className="w-8 h-8 object-contain"
+                      />
+                    </div>
+                    <span className="font-medium text-base truncate">{tech.name}</span>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="projects"
+        className="py-24"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <div className="container mx-auto">
+          <h2 className="text-5xl font-bold mb-8 text-center">
+            Projects
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, i) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.08 }}
+              >
+                <Link href={project.href}>
+                  <Card className="h-full border-white/10 bg-white/5 text-white hover:border-accent/50 transition-colors">
+                    <CardContent className="p-5 flex flex-col gap-3">
+                      <h3 className="font-semibold text-lg">{project.title}</h3>
+                      <p className="text-sm text-white/80 line-clamp-2">{project.description}</p>
+                      <div className="flex flex-wrap gap-2 mt-auto">
+                        {project.tags.map((tag) => (
+                          <span key={tag} className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/90">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Button variant="outline" asChild className="uppercase">
+              <Link href="/projects">View all projects</Link>
+            </Button>
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="contact"
+        className="py-24"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-4 text-accent">
+            Get in touch
+          </h2>
+          <p className="text-white/80 max-w-lg mx-auto mb-8">
+            Have a question or want to work together? Reach out via the links below or send a message.
+          </p>
+          <Social
+            containerStyles="flex justify-center gap-4 mb-8"
+            iconStyles="w-10 h-10 border border-accent rounded-full flex justify-center items-center text-accent text-lg hover:bg-accent hover:text-primary hover:transition-all duration-500"
+          />
+          <Button variant="outline" asChild className="uppercase">
+            <Link href="/contact">Contact me</Link>
+          </Button>
+        </div>
+      </motion.section>
+    </>
   );
 };
 
