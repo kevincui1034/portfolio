@@ -47,7 +47,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} relative`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} relative`} suppressHydrationWarning>
         <div className="fixed inset-0 -z-10">
           <GridPattern className="fill-white/[0.03] stroke-white/[0.03]" />
         </div>

@@ -26,24 +26,24 @@ const technologies = [
 const projects = [
   { title: "Pokemon Moveset Predictor",
     description: "Pokemon moveset predictor using machine learning.",
-    href: "/projects",
+    href: "/projects/pokemon",
     tags: ["Python", "Pandas", "Numpy", "Scikit-learn", "GCP", "Dash", "Flask", "Seaborn"] },
 
   { title: "Money Maestro",
     description: "Finance tracking and visualization tool.",
-    href: "/projects",
+    href: "/projects/moneymaestro",
     tags: ["Python", "Dash", "Flask","Seaborn", "GCP", "Plotly"] },
 
   { title: "SkipBeatTi",
-    description:"Music streaming platform with commenting system.",
-    href: "/projects",
-    tags: ["React", "Vite", "Typescript", "MySQL", "TailwindCSS", "Clerk"] },
+    description:"Music streaming platform with user commenting system.",
+    href: "/projects/skipbeatti",
+    tags: ["React", "Vite", "Typescript", "MySQL", "TailwindCSS", "Clerk", "Spotify API", "shadcn/ui"] },
 ];
 
 const HomePage = () => {
   return (
     <>
-      <section id="about" className="min-h-screen flex xl:flex-col justify-center">
+      <section id="home" className="min-h-screen flex xl:flex-col justify-center">
         <div className="container mx-auto h-full">
           <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8 xl:pt-1 xl:pb-4">
             <div className="text-center xl:text-left order-2 xl:order-1">
@@ -86,6 +86,7 @@ const HomePage = () => {
       </section>
 
       <motion.section
+        id="about"
         className="py-24"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -162,23 +163,18 @@ const HomePage = () => {
               </motion.div>
             ))}
           </div>
-          <div className="mt-8 text-center">
-            <Button variant="outline" asChild className="uppercase">
-              <Link href="/projects">View all projects</Link>
-            </Button>
-          </div>
         </div>
       </motion.section>
 
       <motion.section
         id="contact"
-        className="py-24"
+        className="py-48"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <div className="container mx-auto text-center">
+        <div className="container mx-auto text-center pb-16">
           <h2 className="text-4xl font-bold mb-4 text-accent">
             Get in touch
           </h2>
@@ -190,7 +186,7 @@ const HomePage = () => {
             iconStyles="w-10 h-10 border border-accent rounded-full flex justify-center items-center text-accent text-lg hover:bg-accent hover:text-primary hover:transition-all duration-500"
           />
           <Button variant="outline" asChild className="uppercase">
-            <Link href="/contact">Contact me</Link>
+            <a href="mailto:kevincui1034@gmail.com">Contact me</a>
           </Button>
         </div>
       </motion.section>
