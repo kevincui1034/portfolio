@@ -43,15 +43,15 @@ const projects = [
 const HomePage = () => {
   return (
     <>
-      <section id="about" className="h-full min-h-screen">
+      <section id="about" className="min-h-screen flex xl:flex-col justify-center">
         <div className="container mx-auto h-full">
-          <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8 xl:pt-24 xl:pb-24">
+          <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8 xl:pt-1 xl:pb-16">
             <div className="text-center xl:text-left order-2 xl:order-1">
-              <span className="text-[12px] text-accent uppercase tracking-[2px]">Based in San Jose</span>
-              <h1 className="h1 mb-6 text-6xl font-bold">
+              <span className="text-[16px] text-accent uppercase tracking-[2px]">Based in San Jose</span>
+              <h1 className="h1 mb-6 text-7xl font-bold">
                 Kevin Cui<br /> <span className="text-accent"> Data Scientist</span>
               </h1>
-              <p className="max-w-[500px] mb-9 text-white/80 mx-auto xl:mx-0">
+              <p className="text-md max-w-[900px] mb-9 text-white/80 mx-auto xl:mx-0">
                 I'm a data scientist with a passion for building data-driven solutions to real-world problems.
               </p>
               <div className="flex flex-col xl:flex-row items-center gap-8">
