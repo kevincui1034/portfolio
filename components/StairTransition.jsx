@@ -13,7 +13,7 @@ const StairTransition = () => {
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 0 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
             />
         </AnimatePresence>
     );
