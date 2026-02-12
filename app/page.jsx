@@ -11,16 +11,16 @@ import { motion } from "framer-motion";
 const technologies = [
   { name: "Python", image: "/python.svg" },
   { name: "MySQL", image: "/mysql.svg" },
-  { name: "R", image: "/r.svg" },
-  { name: "Git", image: "/git.svg" },
-  { name: "TensorFlow", image: "/tensorflow.svg" },
-  { name: "PyTorch", image: "/pytorch.svg" },
-  { name: "Scikit-learn", image: "/scikit.svg" },
-  { name: "React", image: "/react.svg" },
-  { name: "NextJS", image: "/nextjs.svg" },
-  { name: "NodeJS", image: "/nodejs.svg" },
-  { name: "TailwindCSS", image: "/tailwind.svg" },
-  { name: "Bash", image: "/bash.svg" },
+  { name: "R", image: "/RStudio.svg" },
+  { name: "Git", image: "/git-icon.svg" },
+  { name: "TensorFlow", image: "/tensorflow-icon.svg" },
+  { name: "PyTorch", image: "/pytorch-icon.svg" },
+  { name: "Scikit-learn", image: "/scikit_learn-icon.svg" },
+  { name: "Bash", image: "/gnu-bash.svg" },
+  { name: "React", image: "/reactjs-icon.svg" },
+  { name: "NextJS", image: "/nextjs-icon.svg" },
+  { name: "NodeJS", image: "/nodejs-icon.svg" },
+  { name: "TailwindCSS", image: "/tailwindcss-icon.svg" },
 ];
 
 const projects = [
@@ -107,11 +107,11 @@ const HomePage = () => {
               >
                 <Card className="border-white/10 bg-white/5 text-white hover:border-accent/50 transition-colors">
                   <CardContent className="p-5 flex items-center gap-4">
-                    <div className={`w-12 h-12 flex-shrink-0 rounded-xl overflow-hidden flex items-center justify-center ${tech.iconBg ?? "bg-white/10"}`}>
+                    <div className={`w-14 h-14 flex-shrink-0 rounded-xl overflow-hidden flex items-center justify-center ${tech.iconBg ?? "bg-white/10"}`}>
                       <img
                         src={tech.image}
                         alt=""
-                        className="w-8 h-8 object-contain"
+                        className="w-10 h-10 object-contain"
                       />
                     </div>
                     <span className="font-medium text-base truncate">{tech.name}</span>
