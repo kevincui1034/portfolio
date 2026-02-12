@@ -45,7 +45,7 @@ const HomePage = () => {
     <>
       <section id="about" className="min-h-screen flex xl:flex-col justify-center">
         <div className="container mx-auto h-full">
-          <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8 xl:pt-1 xl:pb-16">
+          <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8 xl:pt-1 xl:pb-4">
             <div className="text-center xl:text-left order-2 xl:order-1">
               <span className="text-[16px] text-accent uppercase tracking-[2px]">Based in San Jose</span>
               <h1 className="h1 mb-6 text-7xl font-bold">
