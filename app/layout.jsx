@@ -7,6 +7,7 @@ import PageTransition from "@/components/PageTransition";
 import StairTransition from "@/components/StairTransition";
 import Header from "@/components/Header";
 import { GridPattern } from "@/components/ui/grid-pattern";
+import { Analytics } from "@vercel/analytics/next"
 
 
 const manrope = Manrope({
@@ -53,6 +54,7 @@ export default function RootLayout({ children }) {
         <Header />
         <StairTransition />
         <PageTransition>{children}</PageTransition>
+        <Analytics />
       </body>
     </html>
   );
