@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -42,15 +43,15 @@ const projects = [
 const HomePage = () => {
   return (
     <>
-      <section className="h-full min-h-screen">
+      <section id="about" className="h-full min-h-screen">
         <div className="container mx-auto h-full">
-          <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-24 xl:pb-24">
-            <div className="text-center xl:text-left">
+          <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8 xl:pt-24 xl:pb-24">
+            <div className="text-center xl:text-left order-2 xl:order-1">
               <span className="text-[12px] text-accent uppercase tracking-[2px]">Based in San Jose</span>
               <h1 className="h1 mb-6 text-6xl font-bold">
                 Kevin Cui<br /> <span className="text-accent"> Data Scientist</span>
               </h1>
-              <p className="max-w-[500px] mb-9 text-white/80">
+              <p className="max-w-[500px] mb-9 text-white/80 mx-auto xl:mx-0">
                 I'm a data scientist with a passion for building data-driven solutions to real-world problems.
               </p>
               <div className="flex flex-col xl:flex-row items-center gap-8">
@@ -66,6 +67,18 @@ const HomePage = () => {
                     iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
                   />
                 </div>
+              </div>
+            </div>
+            <div className="order-1 xl:order-2 flex-shrink-0">
+              <div className="relative w-80 h-80 sm:w-96 sm:h-96 xl:w-[28rem] xl:h-[28rem] rounded-2xl overflow-hidden border-2 border-accent/30">
+                <Image
+                  src="/profile.jpg"
+                  alt="Kevin Cui"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 640px) 320px, (max-width: 1280px) 384px, 448px"
+                  priority
+                />
               </div>
             </div>
           </div>

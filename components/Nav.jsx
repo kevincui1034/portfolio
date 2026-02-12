@@ -6,7 +6,6 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const links = [
     { name: "about", path: "/" },
     { name: "projects", path: "/projects" },
-    { name: "resume", path: "/resume" },
     { name: "contact", path: "/contact" },
 ];
 
