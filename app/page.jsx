@@ -45,7 +45,7 @@ const HomePage = () => {
     <>
       <section id="home" className="min-h-screen flex xl:flex-col justify-center">
         <div className="container mx-auto h-full">
-          <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8 xl:pt-1 xl:pb-4">
+          <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8 xl:pt-0 xl:pb-4">
             <div className="text-center xl:text-left order-2 xl:order-1">
               <span className="text-[16px] text-accent uppercase tracking-[2px]">Based in San Jose</span>
               <h1 className="h1 mb-6 text-7xl font-bold">
@@ -179,14 +179,14 @@ const HomePage = () => {
             Get in touch
           </h2>
           <p className="text-white/80 max-w-lg mx-auto mb-8">
-            Have a question or want to work together? Reach out via the links below or send a message.
+            Please don't hesitate to reach out via the links below or send me an email!
           </p>
           <Social
             containerStyles="flex justify-center gap-4 mb-8"
             iconStyles="w-10 h-10 border border-accent rounded-full flex justify-center items-center text-accent text-lg hover:bg-accent hover:text-primary hover:transition-all duration-500"
           />
           <Button variant="outline" asChild className="uppercase">
-            <a href="mailto:kevincui1034@gmail.com">Contact me</a>
+            <a href="mailto:kevincui1034@gmail.com">Email me</a>
           </Button>
         </div>
       </motion.section>
