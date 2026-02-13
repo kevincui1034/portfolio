@@ -26,17 +26,17 @@ const technologies = [
 const projects = [
   { title: "Pokemon Moveset Predictor",
     description: "Pokemon moveset predictor using machine learning.",
-    href: "/projects/pokemon",
+    href: "https://github.com/kevincui1034/cs163_group11",
     tags: ["Python", "Pandas", "Numpy", "Scikit-learn", "GCP", "Dash", "Flask", "Seaborn"] },
 
   { title: "Money Maestro",
     description: "Finance tracking and visualization tool.",
-    href: "/projects/moneymaestro",
+    href: "https://github.com/CCLDArjun/personal-budgeting-app",
     tags: ["Python", "Dash", "Flask","Seaborn", "GCP", "Plotly"] },
 
   { title: "SkipBeatTi",
     description:"Music streaming platform with user commenting system.",
-    href: "/projects/skipbeatti",
+    href: "https://github.com/MrPicklesBush/SkipBeatTi",
     tags: ["React", "Vite", "Typescript", "MySQL", "TailwindCSS", "Clerk", "Spotify API", "shadcn/ui"] },
 ];
 
