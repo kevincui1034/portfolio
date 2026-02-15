@@ -22,7 +22,7 @@ const technologies = [
   { name: "NodeJS", image: "/nodejs-icon.svg" },
   { name: "TailwindCSS", image: "/tailwindcss-icon.svg" },
 ];
-
+// Projects section
 const projects = [
   { title: "Pokemon Moveset Predictor",
     description: "Pokemon moveset predictor using machine learning.",
