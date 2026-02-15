@@ -1,7 +1,6 @@
-{/* Obeselete */};
-
-
 "use client";
+
+// Obselete
 
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 const projects = [
   { title: "Pokemon Moveset Predictor",
-    description: "Pokemon moveset predictor using machine learning.",
+    description: "Dash web app (Flask + React on GCP) that predicts Pokemon movesets with ~70% precision using a Random Forest model on scraped battle data, with Seaborn visualizations.",
     href: "/projects",
     tags: ["Python", "Pandas", "Numpy", "Scikit-learn", "GCP", "Dash", "Flask", "Seaborn"] },
   { title: "Money Maestro",
@@ -40,7 +40,7 @@ const ProjectsPage = () => {
                 <Card className="h-full border-white/10 bg-white/5 text-white hover:border-accent/50 transition-colors">
                   <CardContent className="p-5 flex flex-col gap-3">
                     <h3 className="font-semibold text-lg">{project.title}</h3>
-                    <p className="text-sm text-white/80 line-clamp-2">{project.description}</p>
+                    <p className="text-sm text-white/80 line-clamp-4 leading-relaxed">{project.description}</p>
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {project.tags.map((tag) => (
                         <span key={tag} className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/90">

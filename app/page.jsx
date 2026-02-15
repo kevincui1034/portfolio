@@ -25,17 +25,17 @@ const technologies = [
 // Projects section
 const projects = [
   { title: "Pokemon Moveset Predictor",
-    description: "Pokemon moveset predictor using machine learning.",
+    description: "Built with a 2-person team: a Dash web app (Flask + React) on Google Cloud. Scraped and cleaned 100+ files from a popular Pokemon battle dataset; trained and tested with scikit-learn (Random Forest, K-means). Delivers ~70% precision and interactive Seaborn visualizations for moveset options.",
     href: "https://github.com/kevincui1034/cs163_group11",
     tags: ["Python", "Pandas", "Numpy", "Scikit-learn", "GCP", "Dash", "Flask", "Seaborn"] },
 
   { title: "Money Maestro",
-    description: "Finance tracking and visualization tool.",
+    description: "Cloud-hosted finance tracking app (Flask + Dash) built in a 2-person team. User auth and persistent data in Google Cloud Storage, real-time Plotly dashboards, and exception handling for stable runtime.",
     href: "https://github.com/CCLDArjun/personal-budgeting-app",
     tags: ["Python", "Dash", "Flask","Seaborn", "GCP", "Plotly"] },
 
   { title: "SkipBeatTi",
-    description:"Music streaming platform with user commenting system.",
+    description: "Full-stack music streaming web app built by a 5-person team with React and Vite. Clerk for auth and OAuth; Spotify API for playback; MySQL for user data and song comments. Fully functional with persistent storage and user interaction.",
     href: "https://github.com/MrPicklesBush/SkipBeatTi",
     tags: ["React", "Vite", "Typescript", "MySQL", "TailwindCSS", "Clerk", "Spotify API", "shadcn/ui"] },
 ];
@@ -150,7 +150,7 @@ const HomePage = () => {
                   <Card className="h-full border-white/10 bg-white/5 text-white hover:border-accent/50 transition-colors">
                     <CardContent className="p-5 flex flex-col gap-3">
                       <h3 className="font-semibold text-lg">{project.title}</h3>
-                      <p className="text-sm text-white/80 line-clamp-2">{project.description}</p>
+                      <p className="text-sm text-white/80 line-clamp-10 pb-2 leading-relaxed">{project.description}</p>
                       <div className="flex flex-wrap gap-2 mt-auto">
                         {project.tags.map((tag) => (
                           <span key={tag} className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/90">

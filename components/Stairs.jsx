@@ -1,6 +1,4 @@
-{/* Obeselete */};
-
-
+// Obselete
 import { animate, motion } from "framer-motion";
 
 const stairAnimation = {
