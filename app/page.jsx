@@ -40,6 +40,7 @@ const projects = [
     tags: ["React", "Vite", "Typescript", "MySQL", "TailwindCSS", "Clerk", "Spotify API", "shadcn/ui"] },
 ];
 
+// Title and intro
 const HomePage = () => {
   return (
     <>
