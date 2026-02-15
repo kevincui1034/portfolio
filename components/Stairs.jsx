@@ -1,3 +1,6 @@
+{/* Obeselete */};
+
+
 import { animate, motion } from "framer-motion";
 
 const stairAnimation = {
