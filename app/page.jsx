@@ -176,7 +176,7 @@ const HomePage = () => {
       >
         <div className="container mx-auto text-center pb-16">
           <h2 className="text-4xl font-bold mb-4 text-accent">
-            Get in touch
+            Let's get in touch!
           </h2>
           <p className="text-white/80 max-w-lg mx-auto mb-8">
             Please don't hesitate to reach out via the links below or send me an email!
