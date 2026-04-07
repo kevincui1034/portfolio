@@ -97,7 +97,7 @@ const HomePage = () => {
             <div className="order-1 xl:order-2 flex-shrink-0">
               <div className="relative w-80 h-80 sm:w-96 sm:h-96 xl:w-[28rem] xl:h-[28rem] rounded-2xl overflow-hidden border-2 border-accent/30">
                 <Image
-                  src="/profile.jpg"
+                  src="/headshot.png"
                   alt="Kevin Cui"
                   fill
                   className="object-cover object-top"
