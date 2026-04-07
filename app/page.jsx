@@ -30,7 +30,7 @@ const projects = [
       "Full-stack web app (Next.js, React, Tailwind) that offers non-professional medical guidance and interprets medical terminology in plain language for patients unfamiliar with clinical terms. Integrated ElevenLabs for voice transcription and optional TTS, wiring multipart and JSON flows through Next.js App Routes. MiniMax powers creates selectable prompts for the user to choose from.",
     href: "https://mini-med.vercel.app",
     image: "/minimed.jpg",
-    tags: ["Next.js", "React", "Tailwind", "ElevenLabs", "MiniMax", "App Router"],
+    tags: ["Next.js", "React", "Tailwind", "ElevenLabs", "MiniMax"],
   },
   {
     title: "Next Boba",
