@@ -22,22 +22,46 @@ const technologies = [
   { name: "NodeJS", image: "/nodejs-icon.svg" },
   { name: "TailwindCSS", image: "/tailwindcss-icon.svg" },
 ];
-// Projects section
+
 const projects = [
-  { title: "Pokemon Moveset Predictor",
-    description: "Built with a 2-person team: a Dash web app (Flask + React) on Google Cloud. Scraped and cleaned 100+ files from a popular Pokemon battle dataset; trained and tested with scikit-learn (Random Forest, K-means). Delivers ~70% precision and interactive Seaborn visualizations for moveset options.",
+  {
+    title: "MiniMed",
+    description:
+      "Full-stack web app (Next.js, React, Tailwind) that offers non-professional medical guidance and interprets medical terminology in plain language for patients unfamiliar with clinical terms. Integrated ElevenLabs for voice transcription and optional TTS, wiring multipart and JSON flows through Next.js App Routes. MiniMax powers creates selectable prompts for the user to choose from.",
+    href: "https://mini-med.vercel.app",
+    image: "/minimed.jpg",
+    tags: ["Next.js", "React", "Tailwind", "ElevenLabs", "MiniMax", "App Router"],
+  },
+  {
+    title: "Next Boba",
+    description:
+      "Full-stack web app (Next.js, React, Tailwind, shadcn UI) that queries a FastAPI backend and surfaces ranked bubble-tea shop results from review text search. Fine-tuned a sentiment model on Yelp review data (6M+ rows after aggregation) to label reviews and compute polarity for ranking. PostgreSQL on Supabase stores reviews with sentiment scores and labels for search and aggregation.",
+    href: "https://nextboba.vercel.app",
+    image: "/nextboba.jpg",
+    tags: ["Next.js", "FastAPI", "PostgreSQL", "Supabase", "Vercel", "Railway", "shadcn/ui", "Tailwind"],
+  },
+  {
+    title: "Pokemon Moveset Predictor",
+    description:
+      "Dash + Flask on Google Cloud project project built by a 2-person team. Scraped and cleaned 100+ battle files; scikit-learn (Random Forest, K-means) for ~70% precision and Seaborn visualizations for moveset options.",
     href: "https://github.com/kevincui1034/cs163_group11",
-    tags: ["Python", "Pandas", "Numpy", "Scikit-learn", "GCP", "Dash", "Flask", "Seaborn"] },
-
-  { title: "Money Maestro",
-    description: "Cloud-hosted finance tracking app (Flask + Dash) built in a 2-person team. User auth and persistent data in Google Cloud Storage, real-time Plotly dashboards, and exception handling for stable runtime.",
+    image: "/pokemon.png",
+    tags: ["Python", "Pandas", "Numpy", "Scikit-learn", "GCP", "Dash", "Flask", "Seaborn"],
+  },
+  {
+    title: "Money Maestro",
+    description:
+      "Cloud-hosted finance tracking app (Flask + Dash) built in a 2-person team. User auth and persistent data in Google Cloud Storage, real-time Plotly dashboards, and exception handling for stable runtime.",
     href: "https://github.com/CCLDArjun/personal-budgeting-app",
-    tags: ["Python", "Dash", "Flask","Seaborn", "GCP", "Plotly"] },
-
-  { title: "SkipBeatTi",
-    description: "Full-stack music streaming web app built by a 5-person team with React and Vite. Clerk for auth and OAuth; Spotify API for playback; MySQL for user data and song comments. Fully functional with persistent storage and user interaction.",
+    tags: ["Python", "Dash", "Flask", "Seaborn", "GCP", "Plotly"],
+  },
+  {
+    title: "SkipBeatTi",
+    description:
+      "Full-stack music streaming web app built by a 5-person team with React and Vite. Clerk for auth and OAuth; Spotify API for playback; MySQL for user data and song comments. Fully functional with persistent storage and user interaction.",
     href: "https://github.com/MrPicklesBush/SkipBeatTi",
-    tags: ["React", "Vite", "Typescript", "MySQL", "TailwindCSS", "Clerk", "Spotify API", "shadcn/ui"] },
+    tags: ["React", "Vite", "Typescript", "MySQL", "TailwindCSS", "Clerk", "Spotify API", "shadcn/ui"],
+  },
 ];
 
 // Title and intro
@@ -137,7 +161,7 @@ const HomePage = () => {
           <h2 className="text-5xl font-bold mb-8 text-center">
             Projects
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
             {projects.map((project, i) => (
               <motion.div
                 key={project.title}
@@ -146,11 +170,28 @@ const HomePage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: i * 0.08 }}
               >
-                <Link href={project.href}>
-                  <Card className="h-full border-white/10 bg-white/5 text-white hover:border-accent/50 transition-colors">
+                <Link href={project.href} className="block">
+                  <Card className={`border-white/10 bg-white/5 text-white hover:border-accent/50 transition-colors ${project.image ? "overflow-hidden" : ""}`}>
+                    {project.image ? (
+                      <div className="relative aspect-video w-full bg-black/40">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          unoptimized
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, 50vw"
+                        />
+                      </div>
+                    ) : null}
                     <CardContent className="p-5 flex flex-col gap-3">
-                      <h3 className="font-semibold text-lg">{project.title}</h3>
-                      <p className="text-sm text-white/80 line-clamp-10 pb-2 leading-relaxed">{project.description}</p>
+                      <div>
+                        <h3 className="font-semibold text-lg">{project.title}</h3>
+                        {"period" in project && project.period ? (
+                          <p className="text-xs text-white/50 mt-1">{project.period}</p>
+                        ) : null}
+                      </div>
+                      <p className="text-sm text-white/80 pb-2 leading-relaxed">{project.description}</p>
                       <div className="flex flex-wrap gap-2 mt-auto">
                         {project.tags.map((tag) => (
                           <span key={tag} className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/90">
