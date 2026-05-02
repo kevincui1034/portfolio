@@ -23,9 +23,43 @@ const technologies = [
   { name: "TailwindCSS", image: "/tailwindcss-icon.svg" },
 ];
 
+const experiences = [
+  {
+    role: "Full-Stack Software Engineering Intern",
+    company: "VTN Manufacturing, Inc.",
+    period: "May – Aug 2025",
+    location: "San Jose, CA",
+    bullets: [
+      "Designed and developed a full-stack performance analytics dashboard from the ground up for CNC machining using React, Node.js, Express, and PostgreSQL to track runtime, downtime, defects, and performance from machine-generated JSON files",
+      "Built a data ingestion pipeline to migrate 5+ years of historical data, processing machine-generated logs into structured records",
+      "Reduced data inconsistency using the ingestion pipeline, improving reporting accuracy and reducing revenue leaks by ~10%",
+      "Decreased data reporting time by approximately 6 hours per week through real-time dashboard insights",
+    ],
+  },
+];
+
 const projects = [
   {
+    title: "Tutor Me",
+    period: "Apr 2026",
+    description:
+      "Browser-based social AI-powered classroom where learners move in a 3D space with others, talk to persona-based tutors that can be shared or duplicated, and join the same live room using a room code. Built with React + Next.js, Three.js for 3D interactions, and VAPI + ElevenLabs for voice. Agent flows use reinforcement learning with Redis for memory and caching.",
+    href: "https://tutor-me-tau.vercel.app",
+    image: "/tutorme.png",
+    tags: ["Next.js", "React", "Three.js", "VAPI", "ElevenLabs", "Redis"],
+  },
+  {
+    title: "AdLabs",
+    period: "Apr 2026",
+    description:
+      "GTM Hackathon finalist — AI marketing platform for discovering short-form trends, turning them into on-brand scripts, and generating AI videos/images with usage analytics. Apify scrapes TikTok, Instagram Reels, and YouTube Shorts metadata; data is cached in Supabase for sub-100 ms loads. Post-hackathon rebuild with Auth.js reduced infrastructure costs by ~90%.",
+    href: "https://adlabs.vercel.app",
+    image: "/adlabs.png",
+    tags: ["Next.js", "React", "Auth.js", "Apify", "Supabase", "Seedance", "Tailwind"],
+  },
+  {
     title: "MiniMed",
+    period: "Apr 2026",
     description:
       "Full-stack web app (Next.js, React, Tailwind) that offers non-professional medical guidance and interprets medical terminology in plain language for patients unfamiliar with clinical terms. Integrated ElevenLabs for voice transcription and optional TTS, wiring multipart and JSON flows through Next.js App Routes. MiniMax powers creates selectable prompts for the user to choose from.",
     href: "https://mini-med.vercel.app",
@@ -34,19 +68,21 @@ const projects = [
   },
   {
     title: "Next Boba",
+    period: "Jan – Mar 2026",
     description:
-      "Full-stack web app (Next.js, React, Tailwind, shadcn UI) that queries a FastAPI backend and surfaces ranked bubble-tea shop results from review text search. Fine-tuned a sentiment model on Yelp review data (6M+ rows after aggregation) to label reviews and compute polarity for ranking. PostgreSQL on Supabase stores reviews with sentiment scores and labels for search and aggregation.",
+      "Full-stack web app with a Next.js/React/Tailwind frontend and a FastAPI backend connected to Supabase. Fine-tuned a sentiment analysis model on 6M+ Yelp reviews for bubble tea businesses. PostgreSQL data model with sentiment scores, labels, and indexes reduced load times to under 200 ms. Frontend on Vercel, backend on Railway.",
     href: "https://nextboba.vercel.app",
     image: "/nextboba.jpg",
     tags: ["Next.js", "FastAPI", "PostgreSQL", "Supabase", "Vercel", "Railway", "shadcn/ui", "Tailwind"],
   },
   {
     title: "Pokemon Moveset Predictor",
+    period: "Jan – May 2025",
     description:
-      "Dash + Flask on Google Cloud project project built by a 2-person team. Scraped and cleaned 100+ battle files; scikit-learn (Random Forest, K-means) for ~70% precision and Seaborn visualizations for moveset options.",
-    href: "https://github.com/kevincui1034/cs163_group11",
+      "Dash + Flask web app on Google Cloud, built in a 2-person team. Python pipelines scraped and processed 100+ competitive battle files spanning 10+ years. Random Forest model recommends movesets with ~70% accuracy, with Seaborn visualizations for outcome trends.",
+    href: "https://pokemon-recommendation.vercel.app",
     image: "/pokemon.png",
-    tags: ["Python", "Pandas", "Numpy", "Scikit-learn", "GCP", "Dash", "Flask", "Seaborn"],
+    tags: ["Python", "Scikit-learn", "GCP", "Dash", "Flask", "Seaborn"],
   },
   {
     title: "Money Maestro",
@@ -74,14 +110,14 @@ const HomePage = () => {
             <div className="text-center xl:text-left order-2 xl:order-1">
               <span className="text-[16px] text-accent uppercase tracking-[2px]">Based in San Jose</span>
               <h1 className="h1 mb-6 text-7xl font-bold">
-                Kevin Cui<br /> <span className="text-accent"> Data Scientist</span>
+                Kevin Cui<br /> <span className="text-accent"> Data Engineer</span>
               </h1>
               <p className="text-md max-w-[900px] mb-9 text-white/80 mx-auto xl:mx-0">
-                I'm a data scientist with a passion for building data-driven solutions to real-world problems.
+                I'm a data engineer with a focus on full-stack development with AI/ML integration!
               </p>
               <div className="flex flex-col xl:flex-row items-center gap-8">
                 <Button variant="outline" size="md" asChild className="uppercase flex items-center gap-2 text-accent">
-                  <a href="/kevincui_resume.pdf" download="kevincui_resume.pdf">
+                  <a href="/kevincui_resume_swe.pdf" download="kevincui_resume_swe.pdf">
                     Download CV
                     <FiDownload className="text-xl" />
                   </a>
@@ -141,6 +177,50 @@ const HomePage = () => {
                       />
                     </div>
                     <span className="font-medium text-base truncate">{tech.name}</span>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="experience"
+        className="py-24"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <div className="container mx-auto">
+          <h2 className="text-5xl font-bold mb-8 text-center">Experience</h2>
+          <div className="flex flex-col gap-6 max-w-4xl mx-auto">
+            {experiences.map((exp, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.08 }}
+              >
+                <Card className="border-white/10 bg-white/5 text-white">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-4">
+                      <div>
+                        <h3 className="font-semibold text-lg">{exp.role}</h3>
+                        <p className="text-accent text-sm">{exp.company} &mdash; {exp.location}</p>
+                      </div>
+                      <span className="text-white/50 text-sm shrink-0">{exp.period}</span>
+                    </div>
+                    <ul className="flex flex-col gap-2">
+                      {exp.bullets.map((b, j) => (
+                        <li key={j} className="text-sm text-white/80 leading-relaxed flex items-baseline gap-2">
+                          <span className="text-accent shrink-0">&#8226;</span>
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
               </motion.div>
