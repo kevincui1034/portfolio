@@ -1,44 +1,39 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    darkMode: ["class"],
-    content: [
+  darkMode: ["class"],
+  content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  
   theme: {
-  	container: {
-  		center: true,
-  		padding: '2rem'
-
-  	},
-  	screens: {
-  		sm: '640px',
-  		md: '768px',
-  		lg: '1024px',
-  		xl: '1280px'
-  	},
-  	fontFamily: {
-  		primary: 'var(--font-geist-sans)',
-  		secondary: 'var(--font-geist-mono)'
-  	},
-  	extend: {
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		},
-  		colors: {
-  			primary:'#1c1c22',
-			accent: {
-				DEFAULT: '#00ff99',
-				hover: '#00e187',
-			},
-  		},
-  	},
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+    },
+    fontFamily: {
+      display: ["var(--font-display)", "system-ui", "sans-serif"],
+      serif: ["var(--font-serif)", "Georgia", "serif"],
+      mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+    },
+    extend: {
+      colors: {
+        bg: "#221e2a",
+        "bg-2": "#2b2734",
+        "bg-3": "#322d3c",
+        ink: "#f3efe8",
+        dim: "#a8a39a",
+        "dim-2": "#7a7470",
+        accent: "#e8a87c",
+        "accent-2": "#c8a8e9",
+        "accent-3": "#8fc8d4",
+      },
+      maxWidth: {
+        page: "1400px",
+      },
+    },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 };
-
