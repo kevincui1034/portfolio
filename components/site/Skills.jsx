@@ -34,7 +34,7 @@ const categories = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="section">
+    <section id="skills" className="section" aria-labelledby="skills-heading">
       <div className="section-head">
         <div className="left">
           <div className="section-label">
@@ -42,12 +42,12 @@ const Skills = () => {
             <span className="num">03</span>
             <span>Stack</span>
           </div>
-          <h2 className="section-title">
+          <h2 id="skills-heading" className="section-title">
             Tools, <em>by layer.</em>
           </h2>
         </div>
         <div className="right">
-          Languages, libraries, and services I'm comfortable shipping with.
+          Languages, libraries, and services I&rsquo;m comfortable shipping with.
         </div>
       </div>
       <div className="skills-grid">

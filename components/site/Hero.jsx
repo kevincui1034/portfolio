@@ -121,8 +121,8 @@ const Hero = () => {
             <div className="v">Full-stack SWE · AI / Data</div>
             <div className="l">Based</div>
             <div className="v">San Jose, California</div>
-            <div className="l">Degree</div>
-            <div className="v">B.S. Data Science · Dec 2025</div>
+            <div className="l">Education</div>
+            <div className="v">B.S. Data Science · SJSU 2025</div>
             <div className="l">Currently</div>
             <div className="v">Open to conversation</div>
           </div>

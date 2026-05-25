@@ -70,7 +70,15 @@ const Cursor = () => {
     raf = requestAnimationFrame(loop);
     let hoverEls = attachHovers();
 
-    const mo = new MutationObserver(() => {
+    const isTrailNode = (node) =>
+      node.nodeType === 1 && node.classList?.contains("cur-trail");
+    const mo = new MutationObserver((mutations) => {
+      const hasRealChange = mutations.some((m) => {
+        for (const n of m.addedNodes) if (!isTrailNode(n)) return true;
+        for (const n of m.removedNodes) if (!isTrailNode(n)) return true;
+        return false;
+      });
+      if (!hasRealChange) return;
       hoverEls.forEach((el) => {
         el.removeEventListener("mouseenter", onEnter);
         el.removeEventListener("mouseleave", onLeave);

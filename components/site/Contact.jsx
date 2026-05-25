@@ -27,14 +27,18 @@ const links = [
 
 const Contact = () => {
   return (
-    <section id="contact" className="section contact-section">
+    <section
+      id="contact"
+      className="section contact-section"
+      aria-labelledby="contact-heading"
+    >
       <div className="contact-card reveal">
         <div className="section-label" style={{ marginBottom: "18px" }}>
           <span className="num">04</span>
           <span>Contact</span>
         </div>
-        <h2>
-          Let's build <em>something cool.</em>
+        <h2 id="contact-heading">
+          Let&rsquo;s build <em>something cool.</em>
         </h2>
         <p>
           Always up for a conversation about thoughtful software, AI products,
@@ -53,7 +57,7 @@ const Contact = () => {
               <div className="lbl">{l.label}</div>
               <div className="val">
                 <span>{l.value}</span>
-                <span className="arr">↗</span>
+                <span className="arr" aria-hidden="true">↗</span>
               </div>
             </a>
           ))}

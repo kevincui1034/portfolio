@@ -1,20 +1,42 @@
 import Image from "next/image";
 
-const projects = [
+const selectedProjects = [
   {
     featured: true,
-    num: "01 · Featured · In progress",
-    date: "April 2026",
-    name: "AdLabs",
+    num: "01 · Featured",
+    date: "Since April 2026",
+    name: "JanusLabs",
     nameItalic: "Labs",
-    namePrefix: "Ad",
-    href: "https://adlabs.vercel.app",
+    namePrefix: "Janus",
+    href: "https://januslabs.dev",
     description:
-      "GTM Hackathon finalist, currently in active development. AI marketing platform that scrapes TikTok, Reels, and Shorts metadata, turns trends into on-brand scripts, and generates AI video. Post-hackathon rebuild cut infra cost by roughly 90%.",
-    stack: ["Next.js", "React", "Auth.js", "Apify", "Supabase", "Seedance"],
-    image: "/adlabs.png",
+      "An AI marketing platform I'm building and selling to consumers. Started as a GTM Hackathon finalist; rebuilt post-hack with an Apify-cached scraping pipeline, multi-provider AI rendering, and Stripe billing. Scrapes TikTok, Reels, and Shorts trends, turns them into on-brand scripts, generates AI video. Still small but actively shipping.",
+    stackGroups: [
+      {
+        label: "Stack",
+        items: ["Next.js", "Apify", "Supabase", "Redis", "Stripe"],
+      },
+      {
+        label: "Models",
+        items: [
+          "Gemini",
+          "DeepSeek",
+          "Nano Banana Pro",
+          "Nano Banana 2",
+          "GPT Image 2",
+          "Seedream",
+          "Seedance",
+          "Kling",
+          "More to come...",
+        ],
+      },
+    ],
+    image: "/januslabs.png",
+    imageAlt:
+      "JanusLabs marketing platform dashboard with brand panels and trending content cards.",
   },
   {
+    span: "lg",
     num: "02",
     date: "April 2026",
     name: "Tutor Me",
@@ -23,8 +45,11 @@ const projects = [
       "A browser-based social AI classroom. Learners move through a shared 3D space, talk to persona-based tutors that can be shared or duplicated, and join the same live room with a code. Agent flows use reinforcement learning with Redis-backed memory.",
     stack: ["Next.js", "React", "Three.js", "VAPI", "ElevenLabs", "Redis"],
     image: "/tutorme.png",
+    imageAlt:
+      "Tutor Me browser-based 3D classroom interface with persona-tutor cards.",
   },
   {
+    span: "sm",
     num: "03",
     date: "April 2026",
     name: "MiniMed",
@@ -33,7 +58,12 @@ const projects = [
       "Plain-language medical guidance with voice transcription and optional TTS, wiring multipart and JSON flows through Next.js App Routes. MiniMax powers selectable prompts for the user to choose from.",
     stack: ["Next.js", "Tailwind", "ElevenLabs", "MiniMax"],
     image: "/minimed.jpg",
+    imageAlt:
+      "MiniMed plain-language medical guidance interface.",
   },
+];
+
+const otherProjects = [
   {
     num: "04",
     date: "Jan to Mar 2026",
@@ -42,7 +72,6 @@ const projects = [
     description:
       "Sentiment analysis for bubble tea shops, fine-tuned on 6M+ Yelp reviews. PostgreSQL model with sentiment scores, labels, and indexes for sub-200ms loads. Frontend on Vercel, backend on Railway.",
     stack: ["FastAPI", "PostgreSQL", "Supabase", "Vercel", "Railway"],
-    image: "/nextboba.jpg",
   },
   {
     num: "05",
@@ -52,7 +81,6 @@ const projects = [
     description:
       "Dash + Flask on GCP, built in a 2-person team. Python pipelines scraped and processed 100+ competitive battle files across 10+ years. A Random Forest model recommends movesets with ~70% accuracy.",
     stack: ["Python", "scikit-learn", "GCP", "Dash", "Flask"],
-    image: "/pokemon.png",
   },
   {
     num: "06",
@@ -62,13 +90,16 @@ const projects = [
     description:
       "Cloud-hosted finance tracker (Flask + Dash). User auth and persistent data in Google Cloud Storage, real-time Plotly dashboards, and exception handling for stable runtime.",
     stack: ["Flask", "Dash", "GCP", "Plotly"],
-    image: null,
   },
 ];
 
 const Projects = () => {
   return (
-    <section id="projects" className="section">
+    <section
+      id="projects"
+      className="section"
+      aria-labelledby="projects-heading"
+    >
       <div className="section-head">
         <div className="left">
           <div className="section-label">
@@ -76,19 +107,24 @@ const Projects = () => {
             <span className="num">02</span>
             <span>Selected Work</span>
           </div>
-          <h2 className="section-title">
+          <h2 id="projects-heading" className="section-title">
             My <em>projects.</em>
           </h2>
         </div>
-        <div className="right">
-          All live; click any card to visit.
-        </div>
+        <div className="right">All live; click any card to visit.</div>
       </div>
+
       <div className="proj-grid">
-        {projects.map((p) => {
-          const cls = `proj reveal${p.featured ? " feat" : ""}${
-            !p.image ? " no-img" : ""
-          }`;
+        {selectedProjects.map((p) => {
+          const cls = [
+            "proj",
+            "reveal",
+            p.featured && "feat",
+            p.span && `sel-${p.span}`,
+            !p.image && "no-img",
+          ]
+            .filter(Boolean)
+            .join(" ");
           return (
             <a
               key={p.name}
@@ -109,17 +145,34 @@ const Projects = () => {
                       <em>{p.nameItalic}</em>
                     </h3>
                     <p>{p.description}</p>
-                    <div className="stack">
-                      {p.stack.map((s) => (
-                        <span key={s}>{s}</span>
-                      ))}
-                    </div>
+                    {p.stackGroups ? (
+                      <div className="stack-groups">
+                        {p.stackGroups.map((g) => (
+                          <div key={g.label} className="stack-group">
+                            <span className="stack-group-label">
+                              {g.label}
+                            </span>
+                            <div className="stack">
+                              {g.items.map((s) => (
+                                <span key={s}>{s}</span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="stack">
+                        {p.stack.map((s) => (
+                          <span key={s}>{s}</span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div className="img-wrap">
                     {p.image ? (
                       <Image
                         src={p.image}
-                        alt={p.name}
+                        alt={p.imageAlt || p.name}
                         fill
                         sizes="(max-width: 900px) 100vw, 50vw"
                         style={{ objectFit: "cover" }}
@@ -128,7 +181,7 @@ const Projects = () => {
                       <div className="placeholder-img">{p.name}</div>
                     )}
                   </div>
-                  <div className="arrow">↗</div>
+                  <div className="arrow" aria-hidden="true">↗</div>
                 </>
               ) : (
                 <>
@@ -136,9 +189,13 @@ const Projects = () => {
                     <div className="img-wrap">
                       <Image
                         src={p.image}
-                        alt={p.name}
+                        alt={p.imageAlt || p.name}
                         fill
-                        sizes="(max-width: 900px) 100vw, 33vw"
+                        sizes={
+                          p.span === "lg"
+                            ? "(max-width: 900px) 100vw, 66vw"
+                            : "(max-width: 900px) 100vw, 33vw"
+                        }
                         style={{ objectFit: "cover" }}
                       />
                     </div>
@@ -156,12 +213,46 @@ const Projects = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="arrow">↗</div>
+                  <div className="arrow" aria-hidden="true">↗</div>
                 </>
               )}
             </a>
           );
         })}
+      </div>
+
+      <div className="proj-tier-label">
+        <span>Other work</span>
+        <span className="line" aria-hidden="true" />
+      </div>
+
+      <div className="proj-list">
+        {otherProjects.map((p) => (
+          <a
+            key={p.name}
+            href={p.href}
+            target="_blank"
+            rel="noopener"
+            className="proj-row reveal"
+          >
+            <div className="proj-row-meta">
+              <span className="num">{p.num}</span>
+              <span>{p.date}</span>
+            </div>
+            <div className="proj-row-content">
+              <h3>{p.name}</h3>
+              <p>{p.description}</p>
+              <div className="stack">
+                {p.stack.map((s) => (
+                  <span key={s}>{s}</span>
+                ))}
+              </div>
+            </div>
+            <div className="proj-row-arrow" aria-hidden="true">
+              View ↗
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   );
