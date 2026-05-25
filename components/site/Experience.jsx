@@ -18,7 +18,7 @@ const Experience = () => {
           <p className="bio-lead">
             I&rsquo;m a Dec 2025 Data Science grad from San Jose State
             University, building full-stack AI products where customers
-            have a need and the model has an answer.
+            have a need and I have an answer.
           </p>
         </div>
         <div className="xp-bio reveal">
