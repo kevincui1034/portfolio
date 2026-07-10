@@ -1,52 +1,68 @@
 const LINKS = [
-  { label: "GITHUB ↗", href: "https://github.com/kevincui1034" },
+  { n: "01", label: "GITHUB", href: "https://github.com/kevincui1034" },
   {
-    label: "LINKEDIN ↗",
+    n: "02",
+    label: "LINKEDIN",
     href: "https://www.linkedin.com/in/kevincui-datascientist/",
   },
-  { label: "X / TWITTER ↗", href: "https://x.com/kevincui_dev" },
-  { label: "INSTAGRAM ↗", href: "https://www.instagram.com/aku.kevinc/" },
-  { label: "TIKTOK ↗", href: "https://www.tiktok.com/@kevincuidev" },
-  { label: "RESUME ↓", href: "/kevincui_resume.pdf" },
+  { n: "03", label: "X / TWITTER", href: "https://x.com/kevincui_dev" },
+  { n: "04", label: "INSTAGRAM", href: "https://www.instagram.com/aku.kevinc/" },
+  { n: "05", label: "TIKTOK", href: "https://www.tiktok.com/@kevincuidev" },
+  { n: "06", label: "RESUME", href: "/kevincui_resume.pdf" },
 ];
 
 const Contact = () => {
   return (
-    <section id="contact" className="contact" aria-labelledby="contact-heading">
-      <div
-        className="ghost"
-        data-ghost="0.12"
-        style={{ bottom: "12vh", right: "-2vw" }}
-        aria-hidden="true"
-      >
-        CONTACT
-      </div>
-      <div className="contact-inner reveal">
-        <div className="eyebrow">( 07 ) · CONTACT</div>
-        <h2 id="contact-heading" className="contact-head">
-          Have a need? Let&rsquo;s build the answer.
-        </h2>
-        <a href="mailto:kevincui1034@gmail.com" className="contact-email">
-          kevincui1034@gmail.com
+    <section
+      id="contact"
+      className="contact"
+      data-section
+      data-idx="07"
+      data-label="CONTACT"
+      aria-labelledby="contact-heading"
+    >
+      <p className="contact-kicker">
+        07 // CONTACT — <b>SYS.READY</b>
+      </p>
+
+      <h2 id="contact-heading" className="contact-head">
+        <span className="contact-line small">Have a need?</span>
+        <span className="contact-line big">
+          Let&rsquo;s build <em>the answer.</em>
+        </span>
+      </h2>
+
+      <div className="contact-cta">
+        <a
+          href="mailto:kevincui1034@gmail.com"
+          className="btn btn-solid btn-lg"
+          data-magnetic
+          data-cursor="SEND"
+        >
+          <span>KEVINCUI1034@GMAIL.COM →</span>
         </a>
-        <div className="contact-links">
-          {LINKS.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              target="_blank"
-              rel="noopener"
-            >
-              {l.label}
-            </a>
-          ))}
-        </div>
       </div>
-      <div className="footer-bar">
+
+      <div className="contact-links">
+        {LINKS.map((l) => (
+          <a key={l.label} href={l.href} target="_blank" rel="noopener">
+            <sup>{l.n}</sup>
+            <span data-scramble-hover>{l.label} ↗</span>
+          </a>
+        ))}
+      </div>
+
+      <footer className="footer-bar">
         <span>© 2026 KEVIN CUI</span>
         <span>SAN JOSE, CALIFORNIA</span>
         <span>OPEN TO FULL-TIME</span>
-      </div>
+        <span>
+          LOCAL{" "}
+          <span className="clock" data-clock>
+            --:--:--
+          </span>
+        </span>
+      </footer>
     </section>
   );
 };

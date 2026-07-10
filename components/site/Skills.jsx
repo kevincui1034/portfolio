@@ -1,13 +1,16 @@
 const COLUMNS = [
   {
+    n: "A",
     label: "LANGUAGES",
     items: ["Python", "TypeScript", "JavaScript", "SQL", "R", "Bash"],
   },
   {
+    n: "B",
     label: "FRONTEND",
     items: ["React", "Next.js", "Three.js", "Tailwind", "shadcn/ui", "Vite"],
   },
   {
+    n: "C",
     label: "BACKEND / DATA",
     items: [
       "FastAPI",
@@ -19,6 +22,7 @@ const COLUMNS = [
     ],
   },
   {
+    n: "D",
     label: "AI / ML",
     items: [
       "PyTorch",
@@ -33,29 +37,36 @@ const COLUMNS = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="section" aria-labelledby="skills-heading">
-      <div
-        className="ghost"
-        data-ghost="0.12"
-        style={{ bottom: "6vh", right: "-2vw" }}
-        aria-hidden="true"
-      >
-        STACK
-      </div>
-      <div className="sect-inner">
-        <div className="eyebrow reveal" id="skills-heading">
-          ( 04 ) · STACK
-        </div>
-        <div className="stack-grid reveal" style={{ transitionDelay: "100ms" }}>
+    <section
+      id="skills"
+      className="section"
+      data-section
+      data-idx="04"
+      data-label="STACK"
+      aria-labelledby="skills-heading"
+    >
+      <div className="section-inner">
+        <header className="sec-head reveal">
+          <span className="sec-index" aria-hidden="true">
+            04
+          </span>
+          <h2 id="skills-heading" className="sec-title">
+            Stack
+          </h2>
+          <span className="sec-note" aria-hidden="true">
+            TOOLS OF CHOICE
+          </span>
+        </header>
+
+        <div className="stack-grid reveal" style={{ "--i": 1 }}>
           {COLUMNS.map((c) => (
-            <div key={c.label} className="stack-col">
-              <div className="stack-col-label">{c.label}</div>
-              <div className="stack-col-items">
-                {c.items.map((i, idx) => (
-                  <span key={i}>
-                    {i}
-                    {idx < c.items.length - 1 ? <br /> : null}
-                  </span>
+            <div key={c.label} className="stack-cell">
+              <p className="stack-cell-label">
+                <b>{c.n}/</b> {c.label}
+              </p>
+              <div className="stack-chips">
+                {c.items.map((i) => (
+                  <span key={i}>{i}</span>
                 ))}
               </div>
             </div>
