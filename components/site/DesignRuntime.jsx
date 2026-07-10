@@ -99,11 +99,11 @@ const DesignRuntime = () => {
       pc.width = window.innerWidth;
       pc.height = window.innerHeight;
       parts = [];
-      for (let i = 0; i < 110; i++) {
+      for (let i = 0; i < 150; i++) {
         parts.push({
           x: Math.random(),
           y: Math.random(),
-          r: 0.6 + Math.random() * 1.3,
+          r: 0.7 + Math.random() * 1.7,
           d: 0.3 + Math.random() * 0.7,
           tw: Math.random() * Math.PI * 2,
         });
@@ -240,8 +240,7 @@ const DesignRuntime = () => {
       if (pctx && pc) {
         const w = pc.width;
         const h = pc.height;
-        const vis =
-          Math.max(0, Math.min(1, (state.scrollY / vh - 0.45) * 2)) * 0.9;
+        const vis = Math.max(0, Math.min(1, (state.scrollY / vh - 0.45) * 2));
         pc.style.opacity = String(vis);
         if (vis > 0.01) {
           pctx.clearRect(0, 0, w, h);
@@ -252,7 +251,7 @@ const DesignRuntime = () => {
               h;
             const xx = q.x * w + Math.sin(t * 0.22 + q.tw) * 34 * q.d;
             pctx.globalAlpha =
-              (0.1 + 0.2 * q.d) * (0.65 + 0.35 * Math.sin(t * 0.9 + q.tw));
+              (0.24 + 0.36 * q.d) * (0.7 + 0.3 * Math.sin(t * 0.9 + q.tw));
             pctx.beginPath();
             pctx.arc(xx, yy, q.r, 0, 6.2832);
             pctx.fill();
