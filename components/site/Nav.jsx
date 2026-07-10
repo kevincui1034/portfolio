@@ -5,8 +5,9 @@ const Nav = () => {
         KC
       </a>
       <div className="nav-links">
-        <a href="#work">WORK</a>
         <a href="#about">ABOUT</a>
+        <a href="#experience">WORK</a>
+        <a href="#highlights">PROJECTS</a>
         <a href="#contact">CONTACT</a>
         <a
           href="/kevincui_resume.pdf"
