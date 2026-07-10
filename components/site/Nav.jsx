@@ -19,16 +19,10 @@ const Nav = () => {
         SYS.ONLINE
       </span>
       <div className="nav-links">
-        {LINKS.map((l) => (
-          <a
-            key={l.href}
-            href={l.href}
-            className={l.hideSm ? "hide-sm" : undefined}
-          >
-            <sup>{l.n}</sup>
-            <span data-scramble-hover>{l.label}</span>
-          </a>
-        ))}
+        <a href="#about">ABOUT</a>
+        <a href="#experience">WORK</a>
+        <a href="#highlights">PROJECTS</a>
+        <a href="#contact">CONTACT</a>
         <a
           href="/kevincui_resume.pdf"
           target="_blank"

@@ -27,7 +27,7 @@ Single-page portfolio. [app/page.jsx](app/page.jsx) mounts `DesignRuntime` then 
 
 **One global client effect drives page-level interactivity:**
 
-- [DesignRuntime.jsx](components/site/DesignRuntime.jsx) — the only `"use client"` component. It renders fixed visual layers and runs a single `requestAnimationFrame` loop that drives runtime behaviors such as **reveal-on-scroll** (adds `.in` to every `.reveal` via an IntersectionObserver), scroll-progress, parallax on tagged elements, and a custom cursor. It **bails out entirely under `prefers-reduced-motion`** (revealing all `.reveal` immediately) and disables the custom cursor on touch/coarse pointers. Three.js is loaded with `await import("three")`. Keep these guards when you touch the runtime.
+**Section IDs and navigation.** [Nav.jsx](components/site/Nav.jsx) is a fixed bar: **WORK** → `#experience`, **PROJECTS** → `#highlights` (the "Selected work" section), **ABOUT** → `#about`, **CONTACT** → `#contact`, plus `#top` on the "KC" brand and the résumé PDF. (Note the labels don't match the ids one-to-one — WORK points at the experience section, PROJECTS at the highlights section.) Smooth scroll is pure CSS (`html { scroll-behavior: smooth }`), not JS. Section ids in DOM order: `top` (hero), `about`, `experience`, `education`, `skills`, `highlights`, `work` (projects), `contact`. If you rename a section, update Nav's links.
 
 **Every other component is a server component** — none use refs, effects, or browser APIs. Interactivity is delegated to DesignRuntime through `data-*` attributes and shared CSS classes, so the sections stay static.
 
