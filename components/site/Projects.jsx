@@ -25,7 +25,7 @@ const PROJECTS = [
   {
     name: "kyujin",
     href: "https://kyujin.dev/",
-    date: "MAY–JUN 2026 · SOLO",
+    date: "MAY — JUN 2026 · SOLO",
     description:
       "Gmail-native job-application tracker. A hybrid classifier sorts application, interview, rejection and offer email before spending an LLM call. Web plus native iOS, dual Stripe/Apple billing.",
     stack: "NEXT.JS · DRIZZLE · SUPABASE · GEMINI · SWIFTUI",
@@ -79,7 +79,7 @@ const PROJECTS = [
   {
     name: "Next Boba",
     href: "https://nextboba.vercel.app",
-    date: "MAR–APR 2026",
+    date: "MAR — APR 2026",
     description:
       "Search a phrase like “matcha” and rank Bay Area boba shops by sentiment. Built on a RoBERTa classifier fine-tuned on the ~5 GB Yelp dataset, run across millions of reviews via a streaming ETL.",
     stack: "PYTORCH · ROBERTA · FASTAPI · SUPABASE",
@@ -88,7 +88,7 @@ const PROJECTS = [
   {
     name: "Pokémon Predictor",
     href: "https://pokemon-recommendation.vercel.app/",
-    date: "JAN–MAY 2025 · 4-PERSON TEAM",
+    date: "JAN — MAY 2025 · 4-PERSON TEAM",
     description:
       "A competitive-metagame study built with a four-person team. Python pipelines scrape Smogon usage stats across three annual snapshots, feeding a Random Forest that recommends the best move for a matchup.",
     stack: "PYTHON · SCIKIT-LEARN · DASH · GCP",
@@ -98,25 +98,27 @@ const PROJECTS = [
 
 const Projects = () => {
   return (
-    <section id="work" className="section" aria-labelledby="work-heading">
-      <div
-        className="ghost"
-        data-ghost="0.17"
-        style={{ top: "4vh", right: "-4vw" }}
-        aria-hidden="true"
-      >
-        PROJECTS
-      </div>
-      <div className="sect-inner" style={{ gap: "64px" }}>
-        <div className="proj-header reveal">
-          <div className="proj-header-left">
-            <div className="eyebrow">( 06 ) · PROJECTS</div>
-            <h2 id="work-heading" className="proj-header-title">
-              More projects
-            </h2>
-          </div>
-          <div className="proj-header-note">03–12 · TWELVE SHIPPED</div>
-        </div>
+    <section
+      id="work"
+      className="section"
+      data-section
+      data-idx="06"
+      data-label="PROJECTS"
+      data-nav="#highlights"
+      aria-labelledby="work-heading"
+    >
+      <div className="section-inner">
+        <header className="sec-head reveal">
+          <span className="sec-index" aria-hidden="true">
+            06
+          </span>
+          <h2 id="work-heading" className="sec-title">
+            Projects
+          </h2>
+          <span className="sec-note" aria-hidden="true">
+            03–12 · TWELVE SHIPPED
+          </span>
+        </header>
 
         <div className="proj-grid">
           {PROJECTS.map((p, i) => (
@@ -125,31 +127,37 @@ const Projects = () => {
               href={p.href}
               target="_blank"
               rel="noopener"
-              className="proj-card reveal"
-              style={{ transitionDelay: `${(i % 2) * 100}ms` }}
+              className="p-card reveal"
+              data-tilt
+              data-cursor="OPEN"
+              style={{ "--i": i % 2 }}
             >
-              <div className="proj-card-media">
+              <div className="p-media">
                 {p.image ? (
                   <Image
                     src={p.image}
                     alt={p.name}
                     fill
-                    sizes="(max-width: 720px) 100vw, 480px"
-                    style={{ objectFit: "cover", objectPosition: "top" }}
+                    sizes="(max-width: 720px) 100vw, 640px"
                   />
                 ) : (
-                  <div className="proj-card-placeholder">
+                  <div className="p-placeholder">
                     <span className="ph-name">{p.name}</span>
                     <span className="ph-label">{p.placeholder}</span>
                   </div>
                 )}
+                <span className="p-idx" aria-hidden="true">
+                  {String(i + 3).padStart(2, "0")}
+                </span>
               </div>
-              <div className="proj-card-head">
-                <h3 className="proj-card-title">{p.name}</h3>
-                <span className="proj-card-date">{p.date}</span>
+              <div className="p-body">
+                <div className="p-head">
+                  <h3 className="p-title">{p.name}</h3>
+                  <span className="p-date">{p.date}</span>
+                </div>
+                <p className="p-desc">{p.description}</p>
+                <p className="p-stack">{p.stack}</p>
               </div>
-              <p className="proj-card-desc">{p.description}</p>
-              <div className="proj-card-stack">{p.stack}</div>
             </a>
           ))}
         </div>

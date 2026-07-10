@@ -1,17 +1,22 @@
-import { Space_Grotesk, Space_Mono } from "next/font/google";
+import { Anton, Archivo, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
-const spaceGrotesk = Space_Grotesk({
+const anton = Anton({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: "400",
   variable: "--font-display",
   display: "swap",
 });
 
-const spaceMono = Space_Mono({
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
 });
@@ -109,13 +114,20 @@ const personJsonLd = {
   email: "mailto:kevincui1034@gmail.com",
 };
 
+// Runs before first paint: tags the doc as JS-capable (gates reveal-hiding
+// styles) and decides whether the boot intro shows this session. Must stay
+// inline so there is no flash of unstyled/hidden state.
+const bootScript = `(function(){try{var d=document.documentElement;d.classList.add("js");var rm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;if(!rm&&!sessionStorage.getItem("kc-boot")){d.classList.add("intro-pending");}}catch(e){}})();`;
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${spaceMono.variable}`}
+      suppressHydrationWarning
+      className={`${anton.variable} ${archivo.variable} ${jetbrains.variable}`}
     >
       <body suppressHydrationWarning>
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
