@@ -46,7 +46,7 @@ const Skills = () => {
       aria-labelledby="skills-heading"
     >
       <div className="section-inner">
-        <header className="sec-head reveal">
+        <header className="sec-head reveal" data-sec-scrub>
           <span className="sec-index" aria-hidden="true">
             04
           </span>

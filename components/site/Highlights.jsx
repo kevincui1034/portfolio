@@ -47,7 +47,7 @@ const Highlights = () => {
     >
       <div className="section hl-head-sec">
         <div className="section-inner">
-          <header className="sec-head reveal">
+          <header className="sec-head reveal" data-sec-scrub>
             <span className="sec-index" aria-hidden="true">
               05
             </span>

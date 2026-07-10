@@ -100,66 +100,81 @@ const Projects = () => {
   return (
     <section
       id="work"
-      className="section"
+      className="proj"
       data-section
       data-idx="06"
       data-label="PROJECTS"
       data-nav="#highlights"
       aria-labelledby="work-heading"
     >
-      <div className="section-inner">
-        <header className="sec-head reveal">
-          <span className="sec-index" aria-hidden="true">
-            06
-          </span>
-          <h2 id="work-heading" className="sec-title">
-            Projects
-          </h2>
-          <span className="sec-note" aria-hidden="true">
-            03–12 · TWELVE SHIPPED
-          </span>
-        </header>
+      <div className="proj-runway" data-rail-runway>
+        <div className="proj-pin">
+          <div className="proj-pin-inner">
+            <header className="sec-head reveal" data-sec-scrub>
+              <span className="sec-index" aria-hidden="true">
+                06
+              </span>
+              <h2 id="work-heading" className="sec-title">
+                Projects
+              </h2>
+              <span className="sec-note" aria-hidden="true">
+                03–12 · TWELVE SHIPPED
+                <span className="rail-hint"> · SCROLL ↓ = →</span>
+              </span>
+            </header>
 
-        <div className="proj-grid">
-          {PROJECTS.map((p, i) => (
-            <a
-              key={p.name}
-              href={p.href}
-              target="_blank"
-              rel="noopener"
-              className="p-card reveal"
-              data-tilt
-              data-cursor="OPEN"
-              style={{ "--i": i % 2 }}
+            <div className="rail-viewport" data-rail-viewport>
+              <div className="proj-rail" data-rail>
+                {PROJECTS.map((p, i) => (
+                  <a
+                    key={p.name}
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener"
+                    className="p-card reveal"
+                    data-tilt
+                    data-cursor="OPEN"
+                    style={{ "--i": i % 3 }}
+                  >
+                    <div className="p-media">
+                      {p.image ? (
+                        <Image
+                          src={p.image}
+                          alt={p.name}
+                          fill
+                          sizes="(max-width: 720px) 100vw, 460px"
+                        />
+                      ) : (
+                        <div className="p-placeholder">
+                          <span className="ph-name">{p.name}</span>
+                          <span className="ph-label">{p.placeholder}</span>
+                        </div>
+                      )}
+                      <span className="p-idx" aria-hidden="true">
+                        {String(i + 3).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <div className="p-body">
+                      <div className="p-head">
+                        <h3 className="p-title">{p.name}</h3>
+                        <span className="p-date">{p.date}</span>
+                      </div>
+                      <p className="p-desc">{p.description}</p>
+                      <p className="p-stack">{p.stack}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div
+              className="rail-progress"
+              data-rail-progress
+              aria-hidden="true"
             >
-              <div className="p-media">
-                {p.image ? (
-                  <Image
-                    src={p.image}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 720px) 100vw, 640px"
-                  />
-                ) : (
-                  <div className="p-placeholder">
-                    <span className="ph-name">{p.name}</span>
-                    <span className="ph-label">{p.placeholder}</span>
-                  </div>
-                )}
-                <span className="p-idx" aria-hidden="true">
-                  {String(i + 3).padStart(2, "0")}
-                </span>
-              </div>
-              <div className="p-body">
-                <div className="p-head">
-                  <h3 className="p-title">{p.name}</h3>
-                  <span className="p-date">{p.date}</span>
-                </div>
-                <p className="p-desc">{p.description}</p>
-                <p className="p-stack">{p.stack}</p>
-              </div>
-            </a>
-          ))}
+              <span />
+            </div>
+          </div>
         </div>
       </div>
     </section>

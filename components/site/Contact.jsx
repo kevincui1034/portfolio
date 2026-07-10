@@ -17,6 +17,7 @@ const Contact = () => {
       id="contact"
       className="contact"
       data-section
+      data-contact-scrub
       data-idx="07"
       data-label="CONTACT"
       aria-labelledby="contact-heading"

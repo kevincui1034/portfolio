@@ -81,6 +81,8 @@ export default function DesignRuntime() {
     }
 
     /* ---------- shared state ---------- */
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const clamp01 = (v) => Math.min(1, Math.max(0, v));
     const fine = window.matchMedia("(pointer: fine)").matches;
     let vw = window.innerWidth;
     let vh = window.innerHeight;
@@ -111,6 +113,14 @@ export default function DesignRuntime() {
     const ringWrap = document.querySelector("[data-cursor-ring]");
     const cursorLabel = document.querySelector("[data-cursor-label-el]");
     const heroName = document.querySelector("[data-hero-name]");
+    const heroRunway = document.querySelector("[data-hero-runway]");
+    const heroStage = document.querySelector("[data-hero-stage]");
+    const secHeads = Array.from(document.querySelectorAll("[data-sec-scrub]"));
+    const contactEl = document.querySelector("[data-contact-scrub]");
+    const railWrap = document.querySelector("[data-rail-runway]");
+    const railViewport = document.querySelector("[data-rail-viewport]");
+    const rail = document.querySelector("[data-rail]");
+    const railProgress = document.querySelector("[data-rail-progress]");
     const timeline = document.querySelector("[data-timeline]");
     const stackPanels = Array.from(
       document.querySelectorAll("[data-stack-panel]")
@@ -140,6 +150,40 @@ export default function DesignRuntime() {
       });
     };
     measureMarquees();
+
+    /* projects rail: vertical scroll budget == horizontal overflow, so the
+       runway height is set from the rail's measured width */
+    let railTravel = 0;
+    let railEnabled = false;
+    const measureRail = () => {
+      if (!railWrap || !rail || !railViewport || vw <= 720) {
+        railEnabled = false;
+        if (rail) rail.style.transform = "";
+        if (railWrap) railWrap.style.height = "";
+        return;
+      }
+      railEnabled = true;
+      railTravel = Math.max(0, rail.scrollWidth - railViewport.clientWidth);
+      railWrap.style.height = `${vh + railTravel}px`;
+    };
+    measureRail();
+    const railRemeasure = setTimeout(measureRail, 700); // fonts settle
+    disposers.push(() => clearTimeout(railRemeasure));
+
+    if (rail) {
+      // keyboard users: tabbing to an off-screen card drives the scrub there
+      on(rail, "focusin", (e) => {
+        if (!railEnabled || railTravel <= 0) return;
+        const card =
+          e.target instanceof Element ? e.target.closest(".p-card") : null;
+        if (!card) return;
+        const p = clamp01(card.offsetLeft / railTravel);
+        const top =
+          railWrap.getBoundingClientRect().top + window.scrollY +
+          p * railTravel;
+        window.scrollTo({ top, behavior: "instant" });
+      });
+    }
 
     startClock();
 
@@ -381,6 +425,7 @@ export default function DesignRuntime() {
           uTime: { value: 0 },
           uMouse: { value: new THREE.Vector2(0, 0) },
           uVel: { value: 0 },
+          uHero: { value: 0 },
           uPR: { value: Math.min(window.devicePixelRatio || 1, 1.75) },
           uColA: { value: new THREE.Color(0.3, 0.35, 0.33) },
           uColB: { value: new THREE.Color(0.784, 0.961, 0.259) },
@@ -395,6 +440,7 @@ export default function DesignRuntime() {
             uniform float uTime;
             uniform vec2 uMouse;
             uniform float uVel;
+            uniform float uHero;
             uniform float uPR;
             varying float vE;
             varying float vI;
@@ -433,7 +479,7 @@ export default function DesignRuntime() {
               float n = snoise(p.xz * 0.05 + vec2(t, -t * 0.7));
               n += 0.55 * snoise(p.xz * 0.11 - vec2(t * 0.8, t * 0.5));
               n += 0.28 * snoise(p.xz * 0.24 + vec2(0.0, t * 1.4));
-              float amp = 2.1 + uVel * 2.6;
+              float amp = 2.1 + uVel * 2.6 + uHero * 1.8;
               p.y += n * amp;
               float d = distance(p.xz, uMouse);
               float inf = smoothstep(8.5, 0.0, d);
@@ -489,6 +535,7 @@ export default function DesignRuntime() {
       vw = window.innerWidth;
       vh = window.innerHeight;
       measureMarquees();
+      measureRail();
       if (three) {
         three.camera.aspect = vw / vh;
         three.camera.updateProjectionMatrix();
@@ -504,8 +551,6 @@ export default function DesignRuntime() {
     });
 
     /* ---------- master loop ---------- */
-    const lerp = (a, b, t) => a + (b - a) * t;
-    const clamp01 = (v) => Math.min(1, Math.max(0, v));
     let lastRoScroll = -1;
     let time = 0;
 
@@ -522,7 +567,7 @@ export default function DesignRuntime() {
       lastScrollY = scrollY;
       smoothVel = lerp(smoothVel, rawVel, Math.min(1, dt * 7));
 
-      /* scroll progress + readout + canvas dim */
+      /* scroll progress + readout */
       const docH = document.documentElement.scrollHeight - vh;
       const sp = docH > 0 ? clamp01(scrollY / docH) : 0;
       if (progressEl) progressEl.style.setProperty("--sp", sp.toFixed(4));
@@ -531,8 +576,37 @@ export default function DesignRuntime() {
         lastRoScroll = pct;
         roScroll.textContent = String(pct).padStart(3, "0");
       }
+
+      /* scroll-scrubbed choreography */
+      let heroP = 0;
+      let heroEnd = 0;
+      if (heroRunway && heroStage) {
+        const hr = heroRunway.getBoundingClientRect();
+        heroEnd = Math.max(0, hr.height - vh);
+        heroP = heroEnd > 0 ? clamp01(-hr.top / heroEnd) : 0;
+        heroStage.style.setProperty("--hp", heroP.toFixed(4));
+      }
+      secHeads.forEach((h) => {
+        const r = h.getBoundingClientRect();
+        const sep = clamp01((vh * 0.92 - r.top) / (vh * 0.55));
+        h.style.setProperty("--sep", sep.toFixed(3));
+      });
+      if (railEnabled && rail && railWrap) {
+        const rr = railWrap.getBoundingClientRect();
+        const p = railTravel > 0 ? clamp01(-rr.top / railTravel) : 0;
+        rail.style.transform = `translate3d(${(-p * railTravel).toFixed(1)}px, 0, 0)`;
+        if (railProgress) railProgress.style.setProperty("--rp", p.toFixed(4));
+      }
+      if (contactEl) {
+        const r = contactEl.getBoundingClientRect();
+        const cp = clamp01((vh * 0.9 - r.top) / (vh * 0.75));
+        contactEl.style.setProperty("--cp", cp.toFixed(3));
+      }
+
+      /* canvas dim: full strength through the hero runway, fades after */
       if (fxBg) {
-        const dim = Math.max(0.32, 1 - (scrollY / Math.max(vh, 1)) * 0.8);
+        const past = clamp01((scrollY - heroEnd) / Math.max(vh, 1));
+        const dim = Math.max(0.32, 1 - past * 0.7);
         fxBg.style.setProperty("--fxo", dim.toFixed(3));
       }
 
@@ -609,11 +683,12 @@ export default function DesignRuntime() {
         m.track.style.transform = `translate3d(${(m.dir * o).toFixed(1)}px, 0, 0) skewX(${skew.toFixed(2)}deg)`;
       });
 
-      /* sticky stack cover */
+      /* sticky stack cover + entering-panel parallax */
       for (let s = 0; s < stackPanels.length - 1; s++) {
         const nextRect = stackPanels[s + 1].getBoundingClientRect();
         const cover = clamp01(1 - nextRect.top / Math.max(vh, 1));
         stackPanels[s].style.setProperty("--cover", cover.toFixed(3));
+        stackPanels[s + 1].style.setProperty("--enter", cover.toFixed(3));
       }
 
       /* timeline draw */
@@ -650,8 +725,11 @@ export default function DesignRuntime() {
           nx * 1.6,
           Math.min(1, dt * 3)
         );
-        three.camera.position.y = 7.2 + clamp01(scrollY / Math.max(vh, 1)) * 2.4;
-        three.camera.lookAt(0, 0.4, -6);
+        // dive into the field as the hero disintegrates
+        three.camera.position.y = 7.2 + heroP * 3.4;
+        three.camera.position.z = 26 - heroP * 9;
+        u.uHero.value = heroP;
+        three.camera.lookAt(0, 0.4 - heroP * 1.1, -6);
         three.renderer.render(three.scene, three.camera);
       }
     };
