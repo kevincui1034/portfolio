@@ -14,34 +14,39 @@ There is no test runner configured.
 ## Stack
 
 - Next.js 16 App Router, React 19, **JSX (not TypeScript)**. `jsconfig.json` aliases `@/*` to the repo root.
-- Tailwind v3 is installed but **most styling lives in hand-written CSS in [app/globals.css](app/globals.css)**, not utility classes. The Tailwind config exists mostly to register the custom color palette (`bg` `#221e2a`, `ink` `#f3efe8`, `accent` `#e8a87c`, `accent-2` `#c8a8e9`, `accent-3` `#8fc8d4`, etc.) and font families — but components reference these through CSS variables (`var(--accent)`, `var(--ink)`, `var(--bg)`…) defined at the top of [globals.css](app/globals.css), not via Tailwind classes. If you change a color, update both places.
-- Fonts: **Manrope** (`--font-display`), **Fraunces** (`--font-serif`, used italic for editorial accents), **JetBrains Mono** (`--font-mono`). Wired through `next/font/google` in [app/layout.jsx](app/layout.jsx) as CSS variables on `<html>`.
-- No UI library — **no shadcn, no framer-motion, no MagicUI**. Animations are plain CSS transitions and keyframes, plus a few small `requestAnimationFrame` loops. Vercel Analytics is enabled in the root layout.
+- **Design: dark monochrome.** Background `#050505`, ink `#f2f2f4` / `#e8e8ea`, and a white-opacity text ramp. There is **no color accent** — hierarchy comes from type weight, size, and opacity. All tokens are CSS variables at the top of [globals.css](app/globals.css) (`--bg`, `--ink`, `--ink-2`, `--t-80…--t-35`, `--line`, `--surface`). Change a value there.
+- **Fonts:** **Space Grotesk** (`--font-display`, also the body face) and **Space Mono** (`--font-mono`, used for every uppercase label, eyebrow, date, and tag). Wired through `next/font/google` in [app/layout.jsx](app/layout.jsx) as CSS variables on `<html>`. There is no serif.
+- Tailwind v3 is installed but **essentially all styling is hand-written CSS in [app/globals.css](app/globals.css)** as semantic classes (`.hero`, `.section`, `.proj-card`, …), not utility classes. Components reference the CSS variables above.
+- **`three`** (Three.js) is a real dependency — it renders the hero wireframe terrain (see DesignRuntime). It is **dynamically imported** inside a client effect so it never touches SSR.
+- No UI library — **no shadcn, no framer-motion, no MagicUI**. Animations are plain CSS transitions/keyframes plus one `requestAnimationFrame` loop. Vercel Analytics is enabled in the root layout.
 
 ## Architecture
 
-Single-page portfolio. [app/page.jsx](app/page.jsx) mounts every component in order; there are no sibling routes. All section content (experience entries, project cards, skill categories, contact links) lives inline as arrays at the top of each component file — **there is no data layer or CMS**. Edit the arrays to add content.
+Single-page portfolio. [app/page.jsx](app/page.jsx) mounts `DesignRuntime` then every section in order — **Nav, Hero, Marquee, About, Experience, Education, Skills, Highlights, Projects, Contact** — there are no sibling routes. All section content (projects, bullets, skill columns, links) lives inline as arrays/consts at the top of each component file — **there is no data layer or CMS**. Edit the arrays to change content.
 
-**Three globally-mounted client effects wrap the page:**
+**One global client effect drives the whole page:**
 
-- [AmbientAtmosphere.jsx](components/site/AmbientAtmosphere.jsx) — three large `filter: blur(140px)` glow divs that drift via CSS keyframes, plus an SVG noise grain overlay. Fixed to the viewport behind everything.
-- [Cursor.jsx](components/site/Cursor.jsx) — replaces the default cursor with a dot + lerped ring + decaying trail. Bails out on `(hover: none)` or `prefers-reduced-motion`. Uses a `MutationObserver` on `document.body` to re-attach hover handlers (matched by `HOVER_SELECTOR`) when content changes — **be aware: the trail spawns ~36 DOM nodes/sec while the mouse moves, and the observer re-queries on every mutation**. Filter trail nodes if you extend the observer logic.
-- [Reveal.jsx](components/site/Reveal.jsx) — renders nothing; sets up an `IntersectionObserver` that adds `.in` to any `.reveal` element when it scrolls into view, triggering the CSS opacity/translate transition. Under `prefers-reduced-motion`, every `.reveal` is marked `in` immediately.
+- [DesignRuntime.jsx](components/site/DesignRuntime.jsx) — the only `"use client"` component. It renders the fixed visual layers (a **Three.js wireframe-terrain hero canvas**, an ambient particle field, a scroll-progress bar, and a lerped custom cursor) and runs a single `requestAnimationFrame` loop that also drives: **reveal-on-scroll** (adds `.in` to every `.reveal` via an IntersectionObserver), **ghost-title parallax** (`[data-ghost]`), and **hero content parallax + fade** (`[data-hero-inner]`, `[data-hero-name]`). It **bails out entirely under `prefers-reduced-motion`** (revealing all `.reveal` immediately) and hides the custom cursor on touch/coarse pointers. Three.js is loaded with `await import("three")` and its failure is swallowed (the terrain is decorative).
 
-**Section IDs and navigation.** [Nav.jsx](components/site/Nav.jsx) links to `#xp`, `#projects`, `#skills`, `#contact` and uses a custom `smoothScroll` (NOT `scrollIntoView`) that offsets 32px from the top. If you rename a section, update Nav's `links` array. The hero is the implicit "home" — no `#home` anchor exists.
+**Every other component is a server component** — none use refs, effects, or browser APIs. Interactivity (parallax, reveal, cursor) is delegated to DesignRuntime through `data-*` attributes and shared CSS classes, so the sections stay static.
 
-**Editorial design conventions used throughout `globals.css`:**
+**Section IDs and navigation.** [Nav.jsx](components/site/Nav.jsx) is a fixed bar linking to `#work`, `#about`, `#contact` (plus `#top` on the "KC" brand and the résumé PDF). Smooth scroll is pure CSS (`html { scroll-behavior: smooth }`), not JS. Section ids in DOM order: `top` (hero), `about`, `experience`, `education`, `skills`, `highlights`, `work` (projects), `contact`. If you rename a section, update Nav's links.
 
-- `<em>` inside headings is restyled to Fraunces italic in `--accent` color. This is the site's signature flourish — keep using it for one or two words per title, not full phrases.
-- Section heads share a `.section-label` (mono · "01" / "02" · LABEL) + `.section-title` pattern. Section numbering is sequential 01–04.
-- `.reveal` is the only animation primitive — add it to any element you want to fade-in on scroll. Don't reach for framer-motion; it isn't installed.
-- Magnetic CTAs (`useMagnetic` hook in [Hero.jsx](components/site/Hero.jsx)) translate on mouseover. The hook is local to Hero — if you want it elsewhere, lift it to a shared file.
+**Design conventions used throughout `globals.css`:**
 
-**Accessibility note.** `body { cursor: none }` is set globally with a `(hover: none)` and `prefers-reduced-motion` bail-out, but there are currently **no `:focus-visible` styles** anywhere. Keyboard users get no focus indicator on buttons, links, or project cards. Worth adding when you touch component styles.
+- **Ghost titles.** Each section carries one giant outlined word (`.ghost`, `-webkit-text-stroke`, `white-space:nowrap`) behind its content. Position offsets (`top`/`right`/`bottom`/`left`) and the parallax factor (`data-ghost="0.16"`) are set inline per section; the section has `overflow:hidden` so the ghost is clipped, not scrolled.
+- **Eyebrows.** Every section opens with a mono label `( 0N ) · LABEL` (`.eyebrow`), numbered sequentially 01–07.
+- **`.reveal` is the animation primitive.** Add `className="reveal"` to any block to fade+rise it in on scroll; stagger siblings with an inline `style={{ transitionDelay: "150ms" }}`. Don't reach for framer-motion — it isn't installed.
+- **Alt sections.** `.section.alt` (About, Education) and the Highlights/Contact sections get the faint `--surface` tint; plain `.section` (Experience, Skills, Projects) sit on pure `--bg`, so the page alternates.
+- **Cards.** Case studies use `.case` / `.case.reverse` (alternating image/text). Grid projects use `.proj-card`; a project with no screenshot (the two published Claude Code skills) renders `.proj-card-placeholder` instead of an `<Image>`.
+
+**Projects are curated across two sections.** [Highlights.jsx](components/site/Highlights.jsx) shows the two flagships (JanusLabs, ProofLoop) as large "Selected work" case studies; [Projects.jsx](components/site/Projects.jsx) shows the other ten as a card grid — **twelve total**, newest to oldest. Project screenshots live in [public/](public/) (`/januslabs.png`, `/proofloop.png`, …); `headshot.png` and `kevincui_resume_swe.pdf` are there too, referenced by absolute path.
+
+**Accessibility.** `:focus-visible` styles are defined; decorative layers are `aria-hidden`; sections use `aria-labelledby`. The custom cursor and terrain are disabled under `prefers-reduced-motion` and on touch. Keep these guards when you touch the runtime.
 
 ## Conventions
 
-- New components go in [components/site/](components/site/) as PascalCase `.jsx`. Mark them `"use client"` only if they use refs, effects, browser APIs, or event handlers — `Experience`, `Projects`, `Skills`, `Contact`, `Footer`, `AmbientAtmosphere` are server components.
-- Prefer extending [globals.css](app/globals.css) with a new section block (matching the existing `/* ---------- name ---------- */` convention) over inlining styles or adding utility classes.
-- Static assets — resume PDF, project screenshots, headshot — live in [public/](public/) and are referenced by absolute paths like `/headshot.png`, `/kevincui_resume_swe.pdf`.
-- Mobile breakpoint is `@media (max-width: 900px)` (one breakpoint, defined in globals.css). Tailwind's own `sm/md/lg/xl` are configured but rarely used.
+- New components go in [components/site/](components/site/) as PascalCase `.jsx`. Mark a component `"use client"` **only** if it needs refs/effects/browser APIs — right now only `DesignRuntime` does.
+- Prefer extending [globals.css](app/globals.css) with a new `/* ---------- name ---------- */` block of semantic classes over inline styles or Tailwind utilities. Inline `style` is reserved for one-off values a class can't express (per-ghost position offsets, per-reveal `transitionDelay`).
+- Mobile breakpoint is `@media (max-width: 720px)` (defined in globals.css). The layout is otherwise fluid via `clamp()`, `vw`/`vh`, and `flex-wrap`.
+- **Heads-up for visual verification:** the layout leans on `vh` units, so Playwright `fullPage` screenshots inflate/double the page — verify with **viewport** screenshots scrolled to each section instead.

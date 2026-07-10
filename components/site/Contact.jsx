@@ -1,67 +1,51 @@
-const links = [
+const LINKS = [
+  { label: "GITHUB ↗", href: "https://github.com/kevincui1034" },
   {
-    label: "Email",
-    value: "kevincui1034@gmail.com",
-    href: "mailto:kevincui1034@gmail.com",
-    external: false,
-  },
-  {
-    label: "GitHub",
-    value: "@kevincui1034",
-    href: "https://github.com/kevincui1034",
-    external: true,
-  },
-  {
-    label: "LinkedIn",
-    value: "kevincui-datascientist",
+    label: "LINKEDIN ↗",
     href: "https://www.linkedin.com/in/kevincui-datascientist/",
-    external: true,
   },
-  {
-    label: "X / Twitter",
-    value: "@kevincui_ai",
-    href: "https://x.com/kevincui_ai",
-    external: true,
-  },
+  { label: "X / TWITTER ↗", href: "https://x.com/kevincui_dev" },
+  { label: "INSTAGRAM ↗", href: "https://www.instagram.com/aku.kevinc/" },
+  { label: "TIKTOK ↗", href: "https://www.tiktok.com/@kevincuidev" },
+  { label: "RESUME ↓", href: "/kevincui_resume.pdf" },
 ];
 
 const Contact = () => {
   return (
-    <section
-      id="contact"
-      className="section contact-section"
-      aria-labelledby="contact-heading"
-    >
-      <div className="contact-card reveal">
-        <div className="section-label" style={{ marginBottom: "18px" }}>
-          <span className="num">04</span>
-          <span>Contact</span>
-        </div>
-        <h2 id="contact-heading">
-          Let&rsquo;s build <em>something cool.</em>
+    <section id="contact" className="contact" aria-labelledby="contact-heading">
+      <div
+        className="ghost"
+        data-ghost="0.12"
+        style={{ bottom: "12vh", right: "-2vw" }}
+        aria-hidden="true"
+      >
+        CONTACT
+      </div>
+      <div className="contact-inner reveal">
+        <div className="eyebrow">( 07 ) · CONTACT</div>
+        <h2 id="contact-heading" className="contact-head">
+          Have a need? Let&rsquo;s build the answer.
         </h2>
-        <p>
-          Always up for a conversation about thoughtful software, AI products,
-          data systems, or any project where the model and the interface have
-          to think as one piece.
-        </p>
-        <div className="contact-list">
-          {links.map((l) => (
+        <a href="mailto:kevincui1034@gmail.com" className="contact-email">
+          kevincui1034@gmail.com
+        </a>
+        <div className="contact-links">
+          {LINKS.map((l) => (
             <a
               key={l.label}
               href={l.href}
-              {...(l.external
-                ? { target: "_blank", rel: "noopener" }
-                : {})}
+              target="_blank"
+              rel="noopener"
             >
-              <div className="lbl">{l.label}</div>
-              <div className="val">
-                <span>{l.value}</span>
-                <span className="arr" aria-hidden="true">↗</span>
-              </div>
+              {l.label}
             </a>
           ))}
         </div>
+      </div>
+      <div className="footer-bar">
+        <span>© 2026 KEVIN CUI</span>
+        <span>SAN JOSE, CALIFORNIA</span>
+        <span>OPEN TO FULL-TIME</span>
       </div>
     </section>
   );

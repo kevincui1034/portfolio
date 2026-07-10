@@ -1,95 +1,67 @@
+const EXPERIENCES = [
+  {
+    title: "Founding Engineer",
+    org: "JanusLabs · San Jose, CA",
+    date: "APR 2026–PRESENT",
+    bullets: [
+      "Built and operate JanusLabs, a live AI platform that helps creators and small businesses turn trending short-form videos into finished, ready-to-post ads. It began as a hackathon finalist, then I rebuilt it from the ground up to serve real, paying customers.",
+      "Designed the full product from idea to finished ad: surfacing what is trending across the major short-form platforms, turning any video into a complete ad concept through an AI agent, and generating the images and video to produce it, all in one place.",
+      "Built the AI generation engine that creates images and video through several AI models, with automatic recovery when a job fails so users reliably get a finished result instead of a dead end.",
+      "Engineered a credit-based billing system that charges only for successful work, refunds failed jobs automatically, and is protected against duplicate charges, keeping revenue and customer trust accurate.",
+      "Kept the platform fast and dependable as usage grew, using caching and performance work to protect response times and control the cost of the AI services running behind the product.",
+      "Owned every layer of the product, from the creative tools and AI systems to billing, customer plans, and the internal dashboards that track cost against revenue.",
+    ],
+  },
+  {
+    title: "Full-stack SWE Intern",
+    org: "VTN Manufacturing, Inc. · San Jose, CA",
+    date: "MAY–AUG 2025",
+    bullets: [
+      "Designed and built a CNC performance analytics dashboard from zero with React, Node, Express and PostgreSQL, tracking runtime, downtime, defects and performance from JSON logs.",
+      "Engineered a 5+ year historical ingestion pipeline, normalizing machine-generated logs into structured analytics records.",
+      "Improved reporting accuracy enough to flag ~10% revenue leaks the finance team hadn't seen.",
+      "Replaced manual spreadsheets with real-time dashboards, saving ~6 hours/week in reporting.",
+    ],
+  },
+];
+
 const Experience = () => {
   return (
     <section
-      id="xp"
+      id="experience"
       className="section"
-      aria-labelledby="xp-heading"
+      aria-labelledby="experience-heading"
     >
-      <div className="section-head xp-head">
-        <div className="left reveal">
-          <div className="section-label">
-            <span className="line" />
-            <span className="num">01</span>
-            <span>Experience</span>
-          </div>
-          <h2 id="xp-heading" className="section-title">
-            Where I&rsquo;ve <em>worked.</em>
-          </h2>
-          <p className="bio-lead">
-            I&rsquo;m a Dec 2025 Data Science grad from San Jose State
-            University, building full-stack AI products where customers
-            have a need and I have an answer.
-          </p>
-        </div>
-        <div className="xp-bio reveal">
-          <p className="bio-body">
-            I&rsquo;m now working on JanusLabs (an AI marketing tool that started as
-            a GTM Hackathon finalist and now sells direct to consumers), a
-            browser-based 3D classroom with persona tutors, and a
-            plain-language medical assistant. Each one pushed me further into
-            system design and AI engineering that I wish I&rsquo;d learned sooner.
-            I&rsquo;m open to full-time conversations, or opportunities.
-          </p>
-        </div>
+      <div
+        className="ghost"
+        data-ghost="0.13"
+        style={{ bottom: "4vh", left: "-4vw" }}
+        aria-hidden="true"
+      >
+        EXPERIENCE
       </div>
-
-      <div className="xp">
-        <div className="row reveal">
-          <div className="when">Aug 2023 to Dec 2025</div>
-          <div className="what">
-            <h3>
-              B.S. <em>Data Science</em>
-            </h3>
-            <div className="co">San Jose State University, San Jose, CA</div>
-            <dl className="xp-meta">
-              <dt>Relevant Coursework</dt>
-              <dd>
-                Data Structures &amp; Algorithms · Advanced Python Programming
-                · Data Visualization · Database Management Systems · R
-                Programming · Machine Learning · Artificial Intelligence ·
-                Information Security · Probability &amp; Statistics I &amp; II
-              </dd>
-              <dt>Associations</dt>
-              <dd>
-                Mathematics, Engineering, Science, Achievement (MESA) ·
-                Stanford Science Groups (SSG) · International Society of
-                Pharmaceutical Engineers (ISPE) · Society of Asian Scientists
-                and Engineers (SASE)
-              </dd>
-            </dl>
-          </div>
+      <div className="sect-inner">
+        <div className="eyebrow reveal" id="experience-heading">
+          ( 02 ) · EXPERIENCE
         </div>
-
-        <div className="row reveal">
-          <div className="when">May to Aug 2025</div>
-          <div className="what">
-            <h3>
-              Full-stack <em>SWE Intern</em>
-            </h3>
-            <div className="co">VTN Manufacturing, Inc., San Jose, CA</div>
-            <ul>
-              <li>
-                Designed and built a{" "}
-                <b>CNC performance analytics dashboard</b> from zero with
-                React, Node, Express, and PostgreSQL, tracking runtime,
-                downtime, defects, and performance from JSON logs.
-              </li>
-              <li>
-                Engineered a <b>5+ year historical ingestion pipeline</b>,
-                normalizing machine-generated logs into structured analytics
-                records.
-              </li>
-              <li>
-                Improved reporting accuracy enough to flag{" "}
-                <b>~10% revenue leaks</b> the finance team hadn&rsquo;t seen.
-              </li>
-              <li>
-                Replaced manual spreadsheets with real-time dashboards, saving{" "}
-                <b>~6 hours/week</b> in reporting.
-              </li>
+        {EXPERIENCES.map((e, i) => (
+          <div
+            key={e.title}
+            className="cv-block reveal"
+            style={{ transitionDelay: `${(i + 1) * 100}ms` }}
+          >
+            <div className="cv-left">
+              <h3 className="cv-title">{e.title}</h3>
+              <div className="cv-org">{e.org}</div>
+              <div className="cv-date">{e.date}</div>
+            </div>
+            <ul className="cv-bullets">
+              {e.bullets.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
             </ul>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
