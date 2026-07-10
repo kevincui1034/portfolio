@@ -30,7 +30,7 @@ Single-page portfolio. [app/page.jsx](app/page.jsx) mounts `DesignRuntime` then 
 
 **Every other component is a server component** — none use refs, effects, or browser APIs. Interactivity (parallax, reveal, cursor) is delegated to DesignRuntime through `data-*` attributes and shared CSS classes, so the sections stay static.
 
-**Section IDs and navigation.** [Nav.jsx](components/site/Nav.jsx) is a fixed bar linking to `#work`, `#about`, `#contact` (plus `#top` on the "KC" brand and the résumé PDF). Smooth scroll is pure CSS (`html { scroll-behavior: smooth }`), not JS. Section ids in DOM order: `top` (hero), `about`, `experience`, `education`, `skills`, `highlights`, `work` (projects), `contact`. If you rename a section, update Nav's links.
+**Section IDs and navigation.** [Nav.jsx](components/site/Nav.jsx) is a fixed bar: **WORK** → `#experience`, **PROJECTS** → `#highlights` (the "Selected work" section), **ABOUT** → `#about`, **CONTACT** → `#contact`, plus `#top` on the "KC" brand and the résumé PDF. (Note the labels don't match the ids one-to-one — WORK points at the experience section, PROJECTS at the highlights section.) Smooth scroll is pure CSS (`html { scroll-behavior: smooth }`), not JS. Section ids in DOM order: `top` (hero), `about`, `experience`, `education`, `skills`, `highlights`, `work` (projects), `contact`. If you rename a section, update Nav's links.
 
 **Design conventions used throughout `globals.css`:**
 

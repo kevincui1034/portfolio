@@ -932,6 +932,13 @@ button:focus-visible {
 
 /* ---------- mobile ---------- */
 @media (max-width: 720px) {
+  /* drop the brand so the five links don't collide with it */
+  .nav {
+    justify-content: flex-end;
+  }
+  .nav .brand {
+    display: none;
+  }
   .nav-links {
     gap: 16px;
   }
