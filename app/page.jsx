@@ -1,27 +1,29 @@
-import AmbientAtmosphere from "@/components/site/AmbientAtmosphere";
-import Cursor from "@/components/site/Cursor";
+import DesignRuntime from "@/components/site/DesignRuntime";
 import Nav from "@/components/site/Nav";
 import Hero from "@/components/site/Hero";
+import Marquee from "@/components/site/Marquee";
+import About from "@/components/site/About";
 import Experience from "@/components/site/Experience";
-import Projects from "@/components/site/Projects";
+import Education from "@/components/site/Education";
 import Skills from "@/components/site/Skills";
+import Highlights from "@/components/site/Highlights";
+import Projects from "@/components/site/Projects";
 import Contact from "@/components/site/Contact";
-import Footer from "@/components/site/Footer";
-import Reveal from "@/components/site/Reveal";
 
 export default function HomePage() {
   return (
     <>
-      <AmbientAtmosphere />
-      <Cursor />
-      <Reveal />
+      <DesignRuntime />
       <Nav />
       <Hero />
+      <Marquee />
+      <About />
       <Experience />
-      <Projects />
+      <Education />
       <Skills />
+      <Highlights />
+      <Projects />
       <Contact />
-      <Footer />
     </>
   );
 }

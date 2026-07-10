@@ -1,33 +1,32 @@
-const categories = [
+const COLUMNS = [
   {
-    title: "Languages",
+    label: "LANGUAGES",
     items: ["Python", "TypeScript", "JavaScript", "SQL", "R", "Bash"],
   },
   {
-    title: "Frontend",
+    label: "FRONTEND",
     items: ["React", "Next.js", "Three.js", "Tailwind", "shadcn/ui", "Vite"],
   },
   {
-    title: "Backend / Data",
+    label: "BACKEND / DATA",
     items: [
       "FastAPI",
       "Node / Express",
       "PostgreSQL",
-      "MySQL",
-      "Supabase",
-      "Redis",
+      "Drizzle · Supabase",
+      "Redis · Stripe",
       "GCP",
     ],
   },
   {
-    title: "AI / ML",
+    label: "AI / ML",
     items: [
       "PyTorch",
       "TensorFlow",
       "scikit-learn",
       "HF Transformers",
-      "VAPI",
-      "ElevenLabs",
+      "Vercel AI SDK",
+      "VAPI · ElevenLabs",
     ],
   },
 ];
@@ -35,32 +34,33 @@ const categories = [
 const Skills = () => {
   return (
     <section id="skills" className="section" aria-labelledby="skills-heading">
-      <div className="section-head">
-        <div className="left">
-          <div className="section-label">
-            <span className="line" />
-            <span className="num">03</span>
-            <span>Stack</span>
-          </div>
-          <h2 id="skills-heading" className="section-title">
-            Tools, <em>by layer.</em>
-          </h2>
-        </div>
-        <div className="right">
-          Languages, libraries, and services I&rsquo;m comfortable shipping with.
-        </div>
+      <div
+        className="ghost"
+        data-ghost="0.12"
+        style={{ bottom: "6vh", right: "-2vw" }}
+        aria-hidden="true"
+      >
+        STACK
       </div>
-      <div className="skills-grid">
-        {categories.map((c) => (
-          <div key={c.title} className="skill-cat reveal">
-            <h4>{c.title}</h4>
-            <ul>
-              {c.items.map((i) => (
-                <li key={i}>{i}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div className="sect-inner">
+        <div className="eyebrow reveal" id="skills-heading">
+          ( 04 ) · STACK
+        </div>
+        <div className="stack-grid reveal" style={{ transitionDelay: "100ms" }}>
+          {COLUMNS.map((c) => (
+            <div key={c.label} className="stack-col">
+              <div className="stack-col-label">{c.label}</div>
+              <div className="stack-col-items">
+                {c.items.map((i, idx) => (
+                  <span key={i}>
+                    {i}
+                    {idx < c.items.length - 1 ? <br /> : null}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

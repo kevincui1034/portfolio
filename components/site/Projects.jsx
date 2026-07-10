@@ -1,258 +1,158 @@
 import Image from "next/image";
 
-const selectedProjects = [
+// The two flagships (JanusLabs, ProofLoop) live in Highlights; this grid holds
+// the other ten, newest to oldest. The two published Claude Code skills have no
+// live site, so they render a branded placeholder instead of a screenshot.
+const PROJECTS = [
   {
-    featured: true,
-    num: "01 · Featured",
-    date: "Since April 2026",
-    name: "JanusLabs",
-    nameItalic: "Labs",
-    namePrefix: "Janus",
-    href: "https://januslabs.dev",
+    name: "Preflight",
+    href: "https://preflight.butterbase.dev/",
+    date: "JUL 2026 · HACKWITHBAY 3.0, SOLO IN A DAY",
     description:
-      "An AI marketing platform I'm building and selling to consumers. Started as a GTM Hackathon finalist; rebuilt post-hack with an Apify-cached scraping pipeline, multi-provider AI rendering, and Stripe billing. Scrapes TikTok, Reels, and Shorts trends, turns them into on-brand scripts, generates AI video. Still small but actively shipping.",
-    stackGroups: [
-      {
-        label: "Stack",
-        items: ["Next.js", "Apify", "Supabase", "Redis", "Stripe"],
-      },
-      {
-        label: "Models",
-        items: [
-          "Gemini",
-          "DeepSeek",
-          "Nano Banana Pro",
-          "Nano Banana 2",
-          "GPT Image 2",
-          "Seedream",
-          "Seedance",
-          "Kling",
-          "More to come...",
-        ],
-      },
-    ],
-    image: "/januslabs.png",
-    imageAlt:
-      "JanusLabs marketing platform dashboard with brand panels and trending content cards.",
+      "A deploy-review agent that traverses a Neo4j code property graph, checking blast radius, load-bearing hubs and missing prod env vars, then runs your tests in a sandbox for real evidence.",
+    stack: "PYTHON · FASTAPI · NEO4J · DAYTONA",
+    image: "/preflight.png",
   },
   {
-    span: "lg",
-    num: "02",
-    date: "April 2026",
+    name: "Parallax",
+    href: "https://parallax-tawny-xi.vercel.app/",
+    date: "JUN 2026 · 4-HOUR HACKATHON SPRINT",
+    description:
+      "Upload a product photo and an agent turns it into an interactive exploded-parts 3D diagram it drives itself, through a strict Pydantic-validated action protocol: explode, highlight, isolate, focus.",
+    stack: "FASTAPI · THREE.JS · PYDANTIC · GMI CLOUD",
+    image: "/parallax.png",
+  },
+  {
+    name: "kyujin",
+    href: "https://kyujin.dev/",
+    date: "MAY–JUN 2026 · SOLO",
+    description:
+      "Gmail-native job-application tracker. A hybrid classifier sorts application, interview, rejection and offer email before spending an LLM call. Web plus native iOS, dual Stripe/Apple billing.",
+    stack: "NEXT.JS · DRIZZLE · SUPABASE · GEMINI · SWIFTUI",
+    image: "/kyujin.png",
+  },
+  {
+    name: "preprod-check",
+    href: "https://github.com/kevincui1034/preprod-check",
+    date: "JUN 2026 · PUBLISHED SKILL",
+    description:
+      "A Claude Code skill that audits a codebase for production readiness across 14 categories — auth, injection, billing, rate limits, SSRF, secrets — and returns a severity-ranked report with drafted patches.",
+    stack: "CLAUDE CODE · PLUGIN · SECURITY",
+    placeholder: "PUBLISHED CLAUDE CODE SKILL",
+  },
+  {
+    name: "cost-analysis",
+    href: "https://github.com/kevincui1034/cost-analysis",
+    date: "JUN 2026 · PUBLISHED SKILL",
+    description:
+      "A Claude Code skill that inventories every paid API, SDK and service in a project, attaches per-unit rates, and computes per-plan margins — flagging the paths that quietly lose money.",
+    stack: "CLAUDE CODE · PLUGIN · FINOPS",
+    placeholder: "PUBLISHED CLAUDE CODE SKILL",
+  },
+  {
+    name: "Reunion",
+    href: "https://vacaylog.vercel.app/",
+    date: "JUN 2026 · AGENTIC AI SF, 6-PERSON",
+    description:
+      "An iMessage-native group-travel agent that reads travel intent from a group chat and drafts a plan. An on-device gate classifies messages locally with Apple Foundation Models — nothing leaves the Mac.",
+    stack: "TYPESCRIPT · NEXT.JS · APPLE FM · SWIFT",
+    image: "/reunion.png",
+  },
+  {
     name: "Tutor Me",
     href: "https://tutor-me-tau.vercel.app",
+    date: "APR 2026",
     description:
-      "A browser-based social AI classroom. Learners move through a shared 3D space, talk to persona-based tutors that can be shared or duplicated, and join the same live room with a code. Agent flows use reinforcement learning with Redis-backed memory.",
-    stack: ["Next.js", "React", "Three.js", "VAPI", "ElevenLabs", "Redis"],
+      "A browser-based social AI classroom. Learners share a live 3D space with persona tutors grounded in web research, backed by pgvector memory and a semantic cache.",
+    stack: "NEXT.JS · REACT THREE FIBER · PARTYKIT · VAPI · PGVECTOR",
     image: "/tutorme.png",
-    imageAlt:
-      "Tutor Me browser-based 3D classroom interface with persona-tutor cards.",
   },
   {
-    span: "sm",
-    num: "03",
-    date: "April 2026",
     name: "MiniMed",
     href: "https://mini-med.vercel.app",
+    date: "APR 2026",
     description:
-      "Plain-language medical guidance with voice transcription and optional TTS, wiring multipart and JSON flows through Next.js App Routes. MiniMax powers selectable prompts for the user to choose from.",
-    stack: ["Next.js", "Tailwind", "ElevenLabs", "MiniMax"],
+      "Plain-language medical guidance as a seven-phase intake state machine, each step constrained by its own JSON schema, ending in a four-level care recommendation. Voice in and out via ElevenLabs.",
+    stack: "NEXT.JS · MINIMAX · ELEVENLABS",
     image: "/minimed.jpg",
-    imageAlt:
-      "MiniMed plain-language medical guidance interface.",
   },
-];
-
-const otherProjects = [
   {
-    num: "04",
-    date: "Jan to Mar 2026",
     name: "Next Boba",
     href: "https://nextboba.vercel.app",
+    date: "MAR–APR 2026",
     description:
-      "Sentiment analysis for bubble tea shops, fine-tuned on 6M+ Yelp reviews. PostgreSQL model with sentiment scores, labels, and indexes for sub-200ms loads. Frontend on Vercel, backend on Railway.",
-    stack: ["FastAPI", "PostgreSQL", "Supabase", "Vercel", "Railway"],
+      "Search a phrase like “matcha” and rank Bay Area boba shops by sentiment. Built on a RoBERTa classifier fine-tuned on the ~5 GB Yelp dataset, run across millions of reviews via a streaming ETL.",
+    stack: "PYTORCH · ROBERTA · FASTAPI · SUPABASE",
+    image: "/nextboba.jpg",
   },
   {
-    num: "05",
-    date: "Jan to May 2025",
     name: "Pokémon Predictor",
-    href: "https://pokemon-recommendation.vercel.app",
+    href: "https://pokemon-recommendation.vercel.app/",
+    date: "JAN–MAY 2025 · 4-PERSON TEAM",
     description:
-      "Dash + Flask on GCP, built in a 2-person team. Python pipelines scraped and processed 100+ competitive battle files across 10+ years. A Random Forest model recommends movesets with ~70% accuracy.",
-    stack: ["Python", "scikit-learn", "GCP", "Dash", "Flask"],
-  },
-  {
-    num: "06",
-    date: "Jan to May 2025",
-    name: "Money Maestro",
-    href: "https://github.com/CCLDArjun/personal-budgeting-app",
-    description:
-      "Cloud-hosted finance tracker (Flask + Dash). User auth and persistent data in Google Cloud Storage, real-time Plotly dashboards, and exception handling for stable runtime.",
-    stack: ["Flask", "Dash", "GCP", "Plotly"],
+      "A competitive-metagame study built with a four-person team. Python pipelines scrape Smogon usage stats across three annual snapshots, feeding a Random Forest that recommends the best move for a matchup.",
+    stack: "PYTHON · SCIKIT-LEARN · DASH · GCP",
+    image: "/pokemon.png",
   },
 ];
 
 const Projects = () => {
   return (
-    <section
-      id="projects"
-      className="section"
-      aria-labelledby="projects-heading"
-    >
-      <div className="section-head">
-        <div className="left">
-          <div className="section-label">
-            <span className="line" />
-            <span className="num">02</span>
-            <span>Selected Work</span>
-          </div>
-          <h2 id="projects-heading" className="section-title">
-            My <em>projects.</em>
-          </h2>
-        </div>
-        <div className="right">All live; click any card to visit.</div>
+    <section id="work" className="section" aria-labelledby="work-heading">
+      <div
+        className="ghost"
+        data-ghost="0.17"
+        style={{ top: "4vh", right: "-4vw" }}
+        aria-hidden="true"
+      >
+        PROJECTS
       </div>
+      <div className="sect-inner" style={{ gap: "64px" }}>
+        <div className="proj-header reveal">
+          <div className="proj-header-left">
+            <div className="eyebrow">( 06 ) · PROJECTS</div>
+            <h2 id="work-heading" className="proj-header-title">
+              More projects
+            </h2>
+          </div>
+          <div className="proj-header-note">03–12 · TWELVE SHIPPED</div>
+        </div>
 
-      <div className="proj-grid">
-        {selectedProjects.map((p) => {
-          const cls = [
-            "proj",
-            "reveal",
-            p.featured && "feat",
-            p.span && `sel-${p.span}`,
-            !p.image && "no-img",
-          ]
-            .filter(Boolean)
-            .join(" ");
-          return (
+        <div className="proj-grid">
+          {PROJECTS.map((p, i) => (
             <a
               key={p.name}
               href={p.href}
               target="_blank"
               rel="noopener"
-              className={cls}
+              className="proj-card reveal"
+              style={{ transitionDelay: `${(i % 2) * 100}ms` }}
             >
-              {p.featured ? (
-                <>
-                  <div className="body">
-                    <div className="proj-meta">
-                      <span className="num">{p.num}</span>
-                      <span>{p.date}</span>
-                    </div>
-                    <h3>
-                      {p.namePrefix}
-                      <em>{p.nameItalic}</em>
-                    </h3>
-                    <p>{p.description}</p>
-                    {p.stackGroups ? (
-                      <div className="stack-groups">
-                        {p.stackGroups.map((g) => (
-                          <div key={g.label} className="stack-group">
-                            <span className="stack-group-label">
-                              {g.label}
-                            </span>
-                            <div className="stack">
-                              {g.items.map((s) => (
-                                <span key={s}>{s}</span>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="stack">
-                        {p.stack.map((s) => (
-                          <span key={s}>{s}</span>
-                        ))}
-                      </div>
-                    )}
+              <div className="proj-card-media">
+                {p.image ? (
+                  <Image
+                    src={p.image}
+                    alt={p.name}
+                    fill
+                    sizes="(max-width: 720px) 100vw, 480px"
+                    style={{ objectFit: "cover", objectPosition: "top" }}
+                  />
+                ) : (
+                  <div className="proj-card-placeholder">
+                    <span className="ph-name">{p.name}</span>
+                    <span className="ph-label">{p.placeholder}</span>
                   </div>
-                  <div className="img-wrap">
-                    {p.image ? (
-                      <Image
-                        src={p.image}
-                        alt={p.imageAlt || p.name}
-                        fill
-                        sizes="(max-width: 900px) 100vw, 50vw"
-                        style={{ objectFit: "cover" }}
-                      />
-                    ) : (
-                      <div className="placeholder-img">{p.name}</div>
-                    )}
-                  </div>
-                  <div className="arrow" aria-hidden="true">↗</div>
-                </>
-              ) : (
-                <>
-                  {p.image ? (
-                    <div className="img-wrap">
-                      <Image
-                        src={p.image}
-                        alt={p.imageAlt || p.name}
-                        fill
-                        sizes={
-                          p.span === "lg"
-                            ? "(max-width: 900px) 100vw, 66vw"
-                            : "(max-width: 900px) 100vw, 33vw"
-                        }
-                        style={{ objectFit: "cover" }}
-                      />
-                    </div>
-                  ) : null}
-                  <div className="body">
-                    <div className="proj-meta">
-                      <span className="num">{p.num}</span>
-                      <span>{p.date}</span>
-                    </div>
-                    <h3>{p.name}</h3>
-                    <p>{p.description}</p>
-                    <div className="stack">
-                      {p.stack.map((s) => (
-                        <span key={s}>{s}</span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="arrow" aria-hidden="true">↗</div>
-                </>
-              )}
-            </a>
-          );
-        })}
-      </div>
-
-      <div className="proj-tier-label">
-        <span>Other work</span>
-        <span className="line" aria-hidden="true" />
-      </div>
-
-      <div className="proj-list">
-        {otherProjects.map((p) => (
-          <a
-            key={p.name}
-            href={p.href}
-            target="_blank"
-            rel="noopener"
-            className="proj-row reveal"
-          >
-            <div className="proj-row-meta">
-              <span className="num">{p.num}</span>
-              <span>{p.date}</span>
-            </div>
-            <div className="proj-row-content">
-              <h3>{p.name}</h3>
-              <p>{p.description}</p>
-              <div className="stack">
-                {p.stack.map((s) => (
-                  <span key={s}>{s}</span>
-                ))}
+                )}
               </div>
-            </div>
-            <div className="proj-row-arrow" aria-hidden="true">
-              View ↗
-            </div>
-          </a>
-        ))}
+              <div className="proj-card-head">
+                <h3 className="proj-card-title">{p.name}</h3>
+                <span className="proj-card-date">{p.date}</span>
+              </div>
+              <p className="proj-card-desc">{p.description}</p>
+              <div className="proj-card-stack">{p.stack}</div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );

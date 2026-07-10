@@ -1,25 +1,17 @@
-import { Manrope, Fraunces, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
-const manrope = Manrope({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const spaceMono = Space_Mono({
   subsets: ["latin"],
-  weight: ["300", "400"],
-  style: ["normal", "italic"],
-  variable: "--font-serif",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["300", "400"],
+  weight: ["400", "700"],
   variable: "--font-mono",
   display: "swap",
 });
@@ -28,12 +20,12 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://kevincui.vercel.app";
 
 const description =
-  "Full-stack software engineer in San Jose, California. Building thoughtful products with intelligence quietly inside.";
+  "Full-stack AI engineer in San Jose, California. I design and ship AI products end to end: autonomous agents, agentic workflows, RAG pipelines, and the LLM infrastructure underneath.";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Kevin Cui · Software Engineer",
+    default: "Kevin Cui · Full-Stack AI Engineer",
     template: "%s · Kevin Cui",
   },
   description,
@@ -43,10 +35,12 @@ export const metadata = {
   publisher: "Kevin Cui",
   keywords: [
     "Kevin Cui",
-    "Software Engineer",
-    "Full-stack Engineer",
     "AI Engineer",
+    "Full-stack Engineer",
     "Agent Engineering",
+    "Agentic Workflows",
+    "RAG",
+    "LLM Infrastructure",
     "San Jose",
     "California",
     "Next.js",
@@ -58,22 +52,22 @@ export const metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Kevin Cui",
-    title: "Kevin Cui · Software Engineer",
+    title: "Kevin Cui · Full-Stack AI Engineer",
     description,
     images: [
       {
         url: "/headshot.png",
         width: 1024,
         height: 1280,
-        alt: "Kevin Cui — Software Engineer, San Jose CA",
+        alt: "Kevin Cui — Full-Stack AI Engineer, San Jose CA",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kevin Cui · Software Engineer",
+    title: "Kevin Cui · Full-Stack AI Engineer",
     description,
-    creator: "@kevincui_ai",
+    creator: "@kevincui_dev",
     images: ["/headshot.png"],
   },
   robots: {
@@ -95,9 +89,9 @@ const personJsonLd = {
   "@type": "Person",
   name: "Kevin Cui",
   url: siteUrl,
-  jobTitle: "Software Engineer",
+  jobTitle: "Full-Stack AI Engineer",
   description:
-    "Full-stack software engineer focused on AI and agent product work.",
+    "Full-stack AI engineer building autonomous agents, agentic workflows, RAG pipelines, and the LLM infrastructure that runs them.",
   image: `${siteUrl}/headshot.png`,
   address: {
     "@type": "PostalAddress",
@@ -108,7 +102,9 @@ const personJsonLd = {
   sameAs: [
     "https://github.com/kevincui1034",
     "https://www.linkedin.com/in/kevincui-datascientist/",
-    "https://x.com/kevincui_ai",
+    "https://x.com/kevincui_dev",
+    "https://www.instagram.com/aku.kevinc/",
+    "https://www.tiktok.com/@kevincuidev",
   ],
   email: "mailto:kevincui1034@gmail.com",
 };
@@ -117,7 +113,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
+      className={`${spaceGrotesk.variable} ${spaceMono.variable}`}
     >
       <body suppressHydrationWarning>
         <script
