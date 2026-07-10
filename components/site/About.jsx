@@ -17,7 +17,7 @@ const About = () => {
       aria-labelledby="about-heading"
     >
       <div className="section-inner">
-        <header className="sec-head reveal">
+        <header className="sec-head reveal" data-sec-scrub>
           <span className="sec-index" aria-hidden="true">
             01
           </span>

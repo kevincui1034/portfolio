@@ -23,6 +23,7 @@
   --frame: 14px;
   --pad: clamp(20px, 4.5vw, 64px);
   --nav-h: 62px;
+  --hero-run: 210svh;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-io: cubic-bezier(0.7, 0, 0.2, 1);
@@ -637,16 +638,45 @@ html.intro-leaving .intro {
   white-space: nowrap;
 }
 
-/* ---------- hero ---------- */
+/* scroll-scrubbed header kinetics: index and title slide from opposite
+   directions as the section enters (--sep 0 -> 1, default = settled) */
+[data-sec-scrub] .sec-index {
+  transform: translate3d(calc((1 - var(--sep, 1)) * -7vw), 0, 0);
+}
+
+[data-sec-scrub] .sec-title {
+  transform: translate3d(calc((1 - var(--sep, 1)) * 9vw), 0, 0);
+}
+
+[data-sec-scrub] .sec-note {
+  opacity: var(--sep, 1);
+}
+
+/* ---------- hero (scroll-scrubbed runway; stage pins while letters scatter) ---------- */
 
 .hero {
   position: relative;
   z-index: 2;
+}
+
+html.js:not(.reduced) .hero {
+  height: var(--hero-run);
+}
+
+.hero-stage {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: calc(var(--nav-h) + var(--frame) + 24px) var(--pad) 40px;
+}
+
+html.js:not(.reduced) .hero-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .hero-inner {
@@ -665,6 +695,8 @@ html.intro-leaving .intro {
   letter-spacing: 0.3em;
   color: var(--ink-dim);
   margin-bottom: clamp(20px, 4vh, 44px);
+  transform: translate3d(0, calc(var(--hp, 0) * -7vh), 0);
+  opacity: calc(1 - var(--hp, 0) * 1.9);
 }
 
 .hero-status .pulse {
@@ -701,6 +733,19 @@ html.js:not(.intro-done) .hn-l {
   transform: translateY(114%);
 }
 
+/* scroll-scrubbed disintegration: each letter flies along its own vector */
+.hn-s {
+  display: inline-block;
+  transform: translate3d(
+      calc(var(--hp, 0) * var(--sx, 0) * 1vw),
+      calc(var(--hp, 0) * var(--sy, 0) * 1vh),
+      0
+    )
+    rotate(calc(var(--hp, 0) * var(--sr, 0) * 1deg));
+  opacity: calc(1 - var(--hp, 0) * 1.25);
+  will-change: transform, opacity;
+}
+
 .hn-i {
   display: inline-block;
   transform: translate3d(
@@ -721,6 +766,8 @@ html.js:not(.intro-done) .hn-l {
   gap: clamp(24px, 4vw, 80px);
   margin-top: clamp(28px, 5vh, 56px);
   padding-bottom: clamp(40px, 7vh, 80px);
+  transform: translate3d(0, calc(var(--hp, 0) * 9vh), 0);
+  opacity: calc(1 - var(--hp, 0) * 1.7);
 }
 
 .hero-role {
@@ -775,6 +822,7 @@ html.js:not(.intro-done) .hn-l {
   position: absolute;
   bottom: calc(var(--frame) + 26px);
   left: 50%;
+  opacity: calc(1 - var(--hp, 0) * 4);
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
@@ -1300,6 +1348,22 @@ html.js:not(.intro-done) .hn-l {
   grid-template-columns: 0.92fr 1.08fr;
   gap: clamp(36px, 5vw, 90px);
   align-items: center;
+  /* covered panel: content sinks as the next case slides over it */
+  transform: translate3d(0, calc(var(--cover, 0) * 7vh), 0);
+}
+
+/* covered panel: the giant name drifts aside for depth */
+.hl-panel .hl-name {
+  transform: translate3d(calc(var(--cover, 0) * -4vw), 0, 0);
+}
+
+/* entering panel: media and text settle upward as it slides in (--enter 0 -> 1) */
+.hl-panel .hl-media {
+  transform: translate3d(0, calc((1 - var(--enter, 1)) * 10vh), 0);
+}
+
+.hl-panel .hl-text {
+  transform: translate3d(0, calc((1 - var(--enter, 1)) * 5vh), 0);
 }
 
 .hl-panel.rev .hl-media {
@@ -1498,12 +1562,91 @@ html.js:not(.intro-done) .hn-l {
   padding: clamp(18px, 2vw, 26px) clamp(34px, 3.6vw, 54px);
 }
 
-/* ---------- projects grid ---------- */
+/* ---------- projects (pinned horizontal rail; grid fallback) ---------- */
 
-.proj-grid {
+.proj {
+  position: relative;
+  z-index: 2;
+}
+
+/* fallback layout (no-JS, reduced motion, mobile): vertical section + grid */
+.proj-pin {
+  padding: clamp(90px, 13vh, 170px) var(--pad);
+}
+
+.proj-pin-inner {
+  max-width: 1520px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.proj-rail {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(22px, 3vw, 40px);
+}
+
+.rail-hint {
+  display: none;
+}
+
+.rail-progress {
+  display: none;
+  height: 2px;
+  background: var(--line);
+  margin-top: clamp(20px, 3vh, 34px);
+}
+
+.rail-progress span {
+  display: block;
+  height: 100%;
+  background: var(--acid);
+  box-shadow: 0 0 10px rgba(200, 245, 66, 0.5);
+  transform: scaleX(var(--rp, 0));
+  transform-origin: left center;
+}
+
+/* enhanced: pin the viewport, scrub the rail horizontally with scroll */
+@media (min-width: 721px) {
+  html.js:not(.reduced) .proj-pin {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: calc(var(--nav-h) + var(--frame) + 16px) var(--pad) 34px;
+    overflow: hidden;
+  }
+
+  html.js:not(.reduced) .proj-pin .sec-head {
+    margin-bottom: clamp(26px, 4.5vh, 48px);
+  }
+
+  html.js:not(.reduced) .rail-viewport {
+    overflow: visible;
+  }
+
+  html.js:not(.reduced) .proj-rail {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(20px, 2.2vw, 34px);
+    will-change: transform;
+    width: max-content;
+  }
+
+  html.js:not(.reduced) .proj-rail .p-card {
+    width: clamp(340px, 27vw, 430px);
+    flex-shrink: 0;
+  }
+
+  html.js:not(.reduced) .rail-progress {
+    display: block;
+  }
+
+  html.js:not(.reduced) .rail-hint {
+    display: inline;
+  }
 }
 
 .p-card {
@@ -1675,6 +1818,8 @@ html.js:not(.intro-done) .hn-l {
   color: var(--acid);
 }
 
+/* finale scrub: lines slam in from opposite sides as the section enters
+   (--cp 0 -> 1, default = settled for no-JS / reduced motion) */
 .contact-line {
   display: block;
   font-family: var(--font-display), sans-serif;
@@ -1687,11 +1832,15 @@ html.js:not(.intro-done) .hn-l {
   color: transparent;
   -webkit-text-stroke: 1px var(--line-2);
   margin-bottom: clamp(14px, 3vh, 30px);
+  transform: translate3d(calc((1 - var(--cp, 1)) * -30vw), 0, 0);
+  opacity: calc(0.1 + var(--cp, 1) * 0.9);
 }
 
 .contact-line.big {
   font-size: clamp(64px, 12.5vw, 220px);
   color: var(--ink);
+  transform: translate3d(calc((1 - var(--cp, 1)) * 26vw), 0, 0);
+  opacity: calc(0.1 + var(--cp, 1) * 0.9);
 }
 
 .contact-line.big em {
@@ -1703,6 +1852,8 @@ html.js:not(.intro-done) .hn-l {
   margin-top: clamp(36px, 6vh, 64px);
   display: flex;
   justify-content: center;
+  transform: scale(calc(0.8 + var(--cp, 1) * 0.2));
+  opacity: calc(0.15 + var(--cp, 1) * 0.85);
 }
 
 .contact-links {
@@ -1892,7 +2043,7 @@ html.reduced .hero-scroll .wire::after {
     padding: 8px 13px !important;
   }
 
-  .hero {
+  .hero-stage {
     padding-top: calc(var(--nav-h) + 40px);
   }
 
@@ -1983,7 +2134,11 @@ html.reduced .hero-scroll .wire::after {
     font-size: clamp(52px, 13vw, 110px);
   }
 
-  .proj-grid {
+  .proj-pin {
+    padding: 64px var(--pad);
+  }
+
+  .proj-rail {
     grid-template-columns: 1fr;
   }
 
