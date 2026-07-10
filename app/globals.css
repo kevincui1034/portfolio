@@ -1868,32 +1868,13 @@ html.reduced .hero-scroll .wire::after {
 }
 
 @media (max-width: 720px) {
-  :root {
-    --frame: 0px;
-    --nav-h: 56px;
-  }
-
-  .fx-frame {
-    border: 0;
-  }
-
-  .fx-frame .tick,
-  .fx-frame .ro-scroll,
-  .fx-frame .ro-section {
-    display: none;
-  }
-
+  /* drop the brand so the five links don't collide with it */
   .nav {
-    gap: 14px;
-    padding: 0 16px;
+    justify-content: flex-end;
   }
-
-  .nav-status,
-  .nav .brand-role,
-  .nav-links a.hide-sm {
+  .nav .brand {
     display: none;
   }
-
   .nav-links {
     gap: 13px;
   }
