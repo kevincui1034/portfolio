@@ -8,8 +8,9 @@ if you say nothing, the AI picks sensible defaults).
 
 ````
 You are building a single-page interactive 3D website. Follow this specification
-exactly. It is organized as: DELIVERABLE → STACK → THEME → CONTENT → TECHNIQUE
-TIERS → HARD RULES → ACCESSIBILITY & PERFORMANCE → SELF-VERIFICATION.
+exactly. It is organized as: DELIVERABLE → STACK → THEME → DESIGN RULES →
+CONTENT → TECHNIQUE TIERS → HARD RULES → ACCESSIBILITY & PERFORMANCE →
+SELF-VERIFICATION.
 
 ═══════════════════════════════════════════════════════════════════════
 1. DELIVERABLE — definition of done
@@ -18,7 +19,7 @@ TIERS → HARD RULES → ACCESSIBILITY & PERFORMANCE → SELF-VERIFICATION.
 A single-page scrolling website with:
 - A full-viewport animated WebGL particle field behind all content that visibly
   reacts to BOTH scrolling and mouse movement.
-- All Tier 1 techniques (section 5) implemented and working.
+- All Tier 1 techniques (section 6) implemented and working.
 - Smooth 60fps scrolling, no layout jank, no console errors.
 - Full keyboard navigation, and a correct experience under
   prefers-reduced-motion (everything readable, nothing animating).
@@ -101,7 +102,64 @@ THEME 4 · MOLTEN FOUNDRY (charcoal, ember orange, industrial heat)
   stamped mono labels ("BATCH 047"), glow shadows on the accent color.
 
 ═══════════════════════════════════════════════════════════════════════
-4. CONTENT — placeholder (replace freely if the user supplies their own)
+4. DESIGN RULES — the site must not look AI-generated
+═══════════════════════════════════════════════════════════════════════
+
+AI-built sites look "unchosen": every decision is the median default. These
+rules force real decisions. They override your instincts.
+
+THE TELLS — never produce any of these:
+- Purple→blue gradient wallpaper on near-black; gradient text on headings
+  (allowed at most ONCE, on the single most important phrase).
+- Glassmorphism cards everywhere; soft drop shadows on everything.
+- Three identical rounded cards, section after section.
+- Emoji as bullets/icons/section markers; a "✨ Something · Beta" badge pill
+  above the hero.
+- Inter/Roboto/system-ui used for BOTH display and body type.
+- The template: centered hero → centered 3-card features → testimonial → CTA.
+- One uniform fade-up animation applied to every element with equal timing.
+- Copy containing: elevate, unlock, seamless, empower, supercharge,
+  revolutionize, game-changing, cutting-edge, "in today's fast-paced world".
+- Fake proof: invented testimonials, user counts, star ratings, press logos.
+- Blob/mesh-gradient hero art or fake dashboard screenshots.
+
+TYPE — one characterful display face + one workhorse body face + one mono
+(the theme names them; respect their jobs, max three families). Hero display
+≥5× body size. Display: line-height 0.9–1.05, letter-spacing −0.01em to
+−0.04em. Body: line-height 1.5–1.7, max-width ~65ch. Use real typographic
+characters: curly quotes, em dashes, ×, →, ·.
+
+COLOR — exactly the theme tokens: one bg, one ink, ONE accent (+ optional
+support). Accent budget: under 10% of any viewport — punctuation, not prose.
+Tint grays toward the background hue; never pure #888 on a tinted bg. All
+text meets WCAG AA (4.5:1 body, 3:1 large).
+
+LAYOUT — one dominant element per viewport: at every scroll position,
+something is unmistakably most important. Alternate section rhythm (dense
+grid → full-bleed statement → asymmetric split → one huge number); never the
+same card grid twice in a row. Everything on a column grid, broken
+DELIBERATELY about once per section (one element bleeds or overlaps). Left-
+align long text; center only short display moments.
+
+COPY — statements, not descriptions ("Instruments for the curious." not
+"Our Services"). Concrete nouns and numbers over adjectives. Mono microcopy
+labels with a technical voice ("SECTION 02 · FIELD RECORDINGS") add
+character cheaply.
+
+DETAIL — the last 5% is the difference: hairline rules (1px, low-alpha
+ink), a faint grain overlay, index numbers ("01"), styled ::selection and
+:focus-visible, and a designed hover state on every interactive element (an
+underline that draws, a fill that wipes — not just opacity). ONE corner-
+radius language site-wide: sharp (0–2px) or soft (≥12px), never mixed.
+Shadows: hairline borders OR one soft ambient shadow on 1–2 elevated
+elements — never both, never on everything.
+
+MOTION — one signature moment per page (the hero scrub). Everything else
+supports it. Vary reveals by element class (headings rise 20px/0.6s, media
+scales from 0.96/0.9s, rules draw from 0 width) — never one global fade-up.
+
+═══════════════════════════════════════════════════════════════════════
+5. CONTENT — placeholder (replace freely if the user supplies their own)
 ═══════════════════════════════════════════════════════════════════════
 
 The site belongs to "Meridian Works", a fictional creative-technology studio.
@@ -127,7 +185,7 @@ Sections in DOM order, each with an id for anchor navigation:
   hello@meridian.works, and small mono footer credits.
 
 ═══════════════════════════════════════════════════════════════════════
-5. TECHNIQUE TIERS
+6. TECHNIQUE TIERS
 ═══════════════════════════════════════════════════════════════════════
 
 ── TIER 1 · REQUIRED CORE ──────────────────────────────────────────────
@@ -253,7 +311,7 @@ Scroll disintegration: at higher --hp each letter flies along its own scatter
 vector and fades.
 
 ═══════════════════════════════════════════════════════════════════════
-6. HARD RULES — violations are the most common causes of failure
+7. HARD RULES — violations are the most common causes of failure
 ═══════════════════════════════════════════════════════════════════════
 
 R1  NEVER import three at module top level in Stack A (breaks SSR/build). Only
@@ -293,7 +351,7 @@ R10 Cache-and-guard any text-mutating effect (R2's scramble): cache the
     otherwise the animation corrupts the text permanently.
 
 ═══════════════════════════════════════════════════════════════════════
-7. ACCESSIBILITY & PERFORMANCE REQUIREMENTS
+8. ACCESSIBILITY & PERFORMANCE REQUIREMENTS
 ═══════════════════════════════════════════════════════════════════════
 
 - Decorative layers (canvas, overlays, cursor) are aria-hidden="true" and
@@ -309,7 +367,7 @@ R10 Cache-and-guard any text-mutating effect (R2's scramble): cache the
   headings, lang attribute.
 
 ═══════════════════════════════════════════════════════════════════════
-8. SELF-VERIFICATION — do this before declaring success
+9. SELF-VERIFICATION — do this before declaring success
 ═══════════════════════════════════════════════════════════════════════
 
 1. Run it (Stack A: npm run dev; Stack B: open index.html). Zero console
@@ -323,6 +381,9 @@ R10 Cache-and-guard any text-mutating effect (R2's scramble): cache the
    motion, page fully readable.
 5. 390px-wide viewport: single column, no sticky scrub, field still renders.
 6. Disable JS (or simulate WebGL failure): all content visible and readable.
-7. Confirm every Tier 1 item exists. State explicitly which Tier 2/3 items
+7. Design pass: re-read section 4's TELLS list and check the built site
+   against every line — gradients, card grids, fonts, emoji, banned words,
+   uniform animations, shadows. Fix anything that matches before finishing.
+8. Confirm every Tier 1 item exists. State explicitly which Tier 2/3 items
    were included.
 ````
