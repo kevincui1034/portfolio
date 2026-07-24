@@ -1,10 +1,10 @@
 const EXPERIENCES = [
   {
     title: "Founding Engineer",
-    org: "JanusLabs · San Jose, CA",
+    org: "Janusly · San Jose, CA",
     date: "APR 2026 — PRESENT",
     bullets: [
-      "Built and operate JanusLabs, a live AI platform that helps creators and small businesses turn trending short-form videos into finished, ready-to-post ads. It began as a hackathon finalist, then I rebuilt it from the ground up to serve real, paying customers.",
+      "Built and operate Janusly, a live AI platform that helps creators and small businesses turn trending short-form videos into finished, ready-to-post ads. It began as a hackathon finalist, then I rebuilt it from the ground up to serve real, paying customers.",
       "Designed the full product from idea to finished ad: surfacing what is trending across the major short-form platforms, turning any video into a complete ad concept through an AI agent, and generating the images and video to produce it, all in one place.",
       "Built the AI generation engine that creates images and video through several AI models, with automatic recovery when a job fails so users reliably get a finished result instead of a dead end.",
       "Engineered a credit-based billing system that charges only for successful work, refunds failed jobs automatically, and is protected against duplicate charges, keeping revenue and customer trust accurate.",

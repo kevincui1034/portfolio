@@ -44,7 +44,7 @@ const About = () => {
                 plumbing that makes them production-real.
               </p>
               <p>
-                Right now that&rsquo;s <strong>JanusLabs</strong>, the AI
+                Right now that&rsquo;s <strong>Janusly</strong>, the AI
                 marketing platform I&rsquo;m building and selling direct to
                 consumers as founding engineer.
               </p>

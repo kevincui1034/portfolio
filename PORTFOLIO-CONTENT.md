@@ -30,7 +30,7 @@ can be rewritten freely — this is the information, not the copy contract.
 
 Dec 2025 Data Science grad from San Jose State University, building full-stack
 AI products where customers have a need and he has an answer. Currently working
-on JanusLabs (an AI marketing tool that started as a GTM Hackathon finalist and
+on Janusly (an AI marketing tool that started as a GTM Hackathon finalist and
 now sells direct to consumers), a browser-based 3D classroom with persona
 tutors, and a plain-language medical assistant. On the side, builds developer
 tools for AI-written code and ships agent prototypes at hackathons.
@@ -60,7 +60,7 @@ tools for AI-written code and ships agent prototypes at hackathons.
 Twelve projects, listed newest to oldest. Each has: what it is, tech, live link,
 and timeframe. Team/solo and any hackathon are stated where they apply.
 
-### JanusLabs — Since April 2026
+### Janusly — Since April 2026
 Founding-engineer product; his flagship. An AI marketing platform he's building
 and selling to consumers. Started as a GTM Hackathon finalist, then rebuilt from
 scratch: ~67k lines across a 30-table Postgres schema, credit-ledger billing on
@@ -70,9 +70,9 @@ Apify-cached pipeline, turns them into on-brand scripts, and generates AI video
 across a dozen image/video models. Solo build, actively shipping.
 - **Tech:** Next.js, TypeScript, Drizzle, Supabase, Stripe, Apify, Redis
 - **Models used:** Gemini, DeepSeek, Nano Banana Pro, Nano Banana 2, GPT Image 2, Seedream, Seedance, Kling (more ongoing)
-- **Link:** https://januslabs.dev
+- **Link:** https://janusly.com
 
-### ProofLoop — July 2026
+### Proofjury — July 2026
 A correctness gate for AI-written code. Wraps your deploy command and only lets
 it run if a suite of deterministic checks pass — missing env vars, unrun tests,
 hardcoded secrets, pending migrations — each with file-and-line proof. Pass/fail
@@ -80,7 +80,7 @@ is always deterministic; an optional LLM only writes the explanation. Every
 diagnosis is logged to memory so the same failure is caught instantly next time.
 Backed by ~360 tests. Solo.
 - **Tech:** Python, Typer, pytest, Claude Code
-- **Link:** https://proofloop-alpha.vercel.app/
+- **Link:** https://proofjury.vercel.app/
 
 ### Preflight — July 2026
 A deploy-review agent that decides whether a repo will survive a deploy by

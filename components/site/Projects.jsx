@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-// The two flagships (JanusLabs, ProofLoop) live in Highlights; this grid holds
+// The two flagships (Janusly, Proofjury) live in Highlights; this grid holds
 // the other ten, newest to oldest. The two published Claude Code skills have no
 // live site, so they render a branded placeholder instead of a screenshot.
 const PROJECTS = [
