@@ -7,13 +7,13 @@ const CASES = [
         CASE 01/02 · <b>FLAGSHIP</b> · SINCE APR 2026 · SOLO
       </>
     ),
-    name: "JanusLabs",
-    href: "https://januslabs.dev",
-    linkLabel: "VISIT JANUSLABS.DEV ↗",
+    name: "Janusly",
+    href: "https://janusly.com",
+    linkLabel: "VISIT JANUSLY.COM ↗",
     description:
       "An AI marketing platform, built and sold direct to consumers. Around 67k lines across a 30-table Postgres schema, credit-ledger billing on idempotent Stripe webhooks, and a unified render queue that debits at enqueue and refunds on failure. It scrapes TikTok, Reels and Shorts trends, turns them into on-brand scripts, and generates AI video across a dozen image and video models.",
     tags: ["Next.js", "TypeScript", "Drizzle", "Supabase", "Stripe", "Redis"],
-    image: "/januslabs.png",
+    image: "/janusly.png",
     hud: "CASE_01 // LIVE",
     reverse: false,
   },
@@ -23,13 +23,13 @@ const CASES = [
         CASE 02/02 · <b>JUL 2026</b> · SOLO
       </>
     ),
-    name: "ProofLoop",
-    href: "https://proofloop-alpha.vercel.app/",
-    linkLabel: "VISIT PROOFLOOP ↗",
+    name: "Proofjury",
+    href: "https://proofjury.vercel.app/",
+    linkLabel: "VISIT PROOFJURY ↗",
     description:
       "A correctness gate for AI-written code. It wraps your deploy command and only lets it run once deterministic checks pass: missing env vars, unrun tests, hardcoded secrets, pending migrations, each with file-and-line proof. Every diagnosis is logged to memory, so the same failure is caught instantly next time. Backed by around 360 tests.",
     tags: ["Python", "Typer", "pytest", "Claude Code"],
-    image: "/proofloop.png",
+    image: "/proofjury.png",
     hud: "CASE_02 // LIVE",
     reverse: true,
   },

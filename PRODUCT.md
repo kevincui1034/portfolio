@@ -20,7 +20,7 @@ The site has to do two things at once:
 ## Content Priorities
 
 - **Show outcomes, not titles.** Every project and experience line should lead with what shipped and what changed ("saved 6 hours/week," "flagged 10% revenue leaks," "cut infra cost ~90%"). Role names and company logos are metadata.
-- **AI lives in the substance.** The pitch is AI / agent product work; the proof is in the projects (JanusLabs, ProofLoop, TutorMe, MiniMed). Let the reader infer the AI fluency from the work.
+- **AI lives in the substance.** The pitch is AI / agent product work; the proof is in the projects (Janusly, Proofjury, TutorMe, MiniMed). Let the reader infer the AI fluency from the work.
 - **Designed for the deep reader.** EM-level visitors will scroll, hover, and click into demos. The site can be dense and paragraphed; it is not optimized for the 6-second recruiter skim or the ATS keyword pass.
 
 ## Accessibility & Inclusion
